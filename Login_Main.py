@@ -1,8 +1,14 @@
 import tkinter as tk
 from tkinter import *
+from PIL import ImageTk, Image
 
 class Login_Form():
+
+
+
     def __init__(self):
+
+        #main frame code
         logwin=tk.Tk()
         logwin.geometry("1400x800")
         logwin.title("Bank of Nagpur")
@@ -32,7 +38,18 @@ class Login_Form():
 
         login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold')).place(x=900, y=650)
         reset_button=Button(login_form_frame, text="Reset", width=20, height=2, bg="red", font=('arial', 10, 'bold')).place(x=700, y=650)
-        reset_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold')).place(x=1100, y=650)
+        exit_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold'))
+        exit_button.command=logwin.destroy()
+        exit_button.place(x=1100, y=650)
+
+        #img
+        image1 = Image.open("user.ico")
+        resize_image=image1.resize((200,100), Image.ANTIALIAS)
+        test = ImageTk.PhotoImage(resize_image)
+        
+        label1 =tk.Label(image=test)
+        label1.image = test
+        label1.place(x=650,y=210)
 
 
         #NoticeForm Frame
