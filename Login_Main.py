@@ -37,15 +37,16 @@ class Login_Form(Tk):
 
 
         #LoginForm Frame
-        post=StringVar()
+        post=IntVar()
+        
         username=StringVar()
         password=StringVar()
 
 
         login_form_frame=Frame(logwin, width=750, height=600, bg="white", borderwidth=5, relief="sunken").place(x=600, y=150)
         degisnation_label=Label(login_form_frame, text="Degisnation:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=375)
-        degisnation_radio=Radiobutton(login_form_frame, text='Manager', variable=post, value=0,font=('arial', 13, 'bold'), bg='white').place(x=900, y=375)
-        degisnation_radio=Radiobutton(login_form_frame, text='Employee', variable=post, value=0,font=('arial', 13, 'bold'), bg='white').place(x=1050, y=375)
+        degisnation_radio=Radiobutton(login_form_frame, text='Manager', variable=post, value=1,font=('arial', 13, 'bold'), bg='white').place(x=900, y=375)
+        degisnation_radio=Radiobutton(login_form_frame, text='Employee', variable=post, value=2,font=('arial', 13, 'bold'), bg='white').place(x=1050, y=375)
 
         Username_label=Label(login_form_frame, text="Username:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=425)
         Entry_username=Entry(login_form_frame, textvariable=username, bg="grey",font=2, width=25).place(x=900,y=425)
@@ -71,6 +72,7 @@ class Login_Form(Tk):
         #NoticeForm Frame
         notice_frame=Frame(logwin, width=500, height=600, borderwidth=5, relief='sunken', bg='White').place(x=50, y=150)
         notice_label=Label(notice_frame,text='Notice', font=('arail', 30, 'bold'), bg='White').place(x=250, y=175)
+        note_frame=Frame(logwin, width=450, height=500, borderwidth=3, bg="grey").place(x=75, y=240)
 
         logwin.mainloop()
 
