@@ -38,10 +38,10 @@ class Login_Form():
 
         login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold')).place(x=900, y=650)
         reset_button=Button(login_form_frame, text="Reset", width=20, height=2, bg="red", font=('arial', 10, 'bold')).place(x=700, y=650)
-        exit_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold'))
-        exit_button.command=logwin.destroy()
+        exit_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=logwin.destroy)
         exit_button.place(x=1100, y=650)
 
+        Login_lable=Label(login_form_frame, text='Login Here',bg='white', fg='black', font=('arial', 35, 'bold')).place(x=900,y=230)
         #img
         image1 = Image.open("user.ico")
         resize_image=image1.resize((200,100), Image.ANTIALIAS)
@@ -54,6 +54,7 @@ class Login_Form():
 
         #NoticeForm Frame
         notice_frame=Frame(logwin, width=500, height=600, borderwidth=5, relief='sunken', bg='White').place(x=50, y=150)
+        notice_label=Label(notice_frame,text='Notice', font=('arail', 30, 'bold'), bg='White').place(x=250, y=175)
 
         logwin.mainloop()
 start=Login_Form()
