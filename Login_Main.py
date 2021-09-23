@@ -12,6 +12,12 @@ class Login_Form(Tk):
 
             dev_win.mainloop()
 
+    def Help_user(self):
+        self.help_win=tk.Tk()
+        self.help_win.geometry("800x2400")
+        self.help_win.title('Help window')
+        self.help_win.mainloop()
+
 
 
     def __init__(self):
@@ -27,7 +33,7 @@ class Login_Form(Tk):
         Developer_button=Button(logwin, text="<--Develop-->", width=20,bg="yellow", height=1)
         Developer_button['command']=self.Developer
         Developer_button.place(x=1180, y=45)
-        Help_button=Button(logwin, text="Help", width=20, height=1, bg="light green").place(x=1180, y=75)
+        Help_button=Button(logwin, text="Help", width=20, height=1, bg="light green", command=self.Help_user).place(x=1180, y=75)
 
 
         #LoginForm Frame
