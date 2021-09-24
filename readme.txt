@@ -10,7 +10,7 @@ Gui librabry: tkinter
 database:mongodb
 
 total files to be created are
-1. Login_main.py
+1. Login_main.py(help section is only pending(other things are done))
 2. deposit.py
 3. Withdrawal.py
 4. designation.py
