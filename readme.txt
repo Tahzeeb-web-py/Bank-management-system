@@ -15,6 +15,6 @@ total files to be created are
 3. Withdrawal.py
 4. designation.py
 5. database.py
-6. Read me(This text file)
+6. Read me(This is text file)
 
 Git repositiry will also created to push this project on github.com
