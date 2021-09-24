@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from PIL import ImageTk, Image
+from tkinter import Entry
 
 class Login_Form(Tk):
 
@@ -17,6 +18,11 @@ class Login_Form(Tk):
         self.help_win.geometry("800x2400")
         self.help_win.title('Help window')
         self.help_win.mainloop()
+
+    def reset(self):
+        self.entry_username.delete(0,END)
+        self.entry_password.delete(0, END)
+        return
 
 
 
@@ -38,7 +44,6 @@ class Login_Form(Tk):
 
         #LoginForm Frame
         post=IntVar()
-        
         username=StringVar()
         password=StringVar()
 
@@ -49,12 +54,14 @@ class Login_Form(Tk):
         degisnation_radio=Radiobutton(login_form_frame, text='Employee', variable=post, value=2,font=('arial', 13, 'bold'), bg='white').place(x=1050, y=375)
 
         Username_label=Label(login_form_frame, text="Username:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=425)
-        Entry_username=Entry(login_form_frame, textvariable=username, bg="grey",font=2, width=25).place(x=900,y=425)
+        self.entry_username=Entry(login_form_frame, textvariable=username, bg="grey",font=2, width=25)
+        self.entry_username.place(x=900,y=425)
         Password_label=Label(login_form_frame, text="Password:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=475)
-        entry_password=Entry(login_form_frame, textvariable=password, bg="grey",font=2, width=25).place(x=900, y=475)
+        self.entry_password=Entry(login_form_frame, textvariable=password, bg="grey",font=2, width=25)
+        self.entry_password.place(x=900, y=475)
 
         login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold')).place(x=900, y=650)
-        reset_button=Button(login_form_frame, text="Reset", width=20, height=2, bg="red", font=('arial', 10, 'bold')).place(x=700, y=650)
+        reset_button=Button(login_form_frame, text="Reset", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=self.reset).place(x=700, y=650)
         exit_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=logwin.destroy)
         exit_button.place(x=1100, y=650)
 
