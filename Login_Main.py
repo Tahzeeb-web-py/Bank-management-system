@@ -24,9 +24,12 @@ class Login_Form(Tk):
         self.help_win.mainloop()
 
     def reset(self):
+        
         self.entry_username.delete(0,END)
         self.entry_password.delete(0, END)
         return
+
+
     def get_data(self):
         self.user=self.entry_username.get()
         self.get_pass=self.entry_password.get()
