@@ -3,8 +3,14 @@ from tkinter import *
 from PIL import ImageTk, Image
 from tkinter import Entry
 from database import Bank_data
+import pymongo
+from pymongo import MongoClient 
+from designation import Manager
+from designation import Employee
 
 obj=Bank_data()
+obj1=Manager()
+obj2=Employee()
 
 
 class Login_Form(Tk):
@@ -29,18 +35,30 @@ class Login_Form(Tk):
         self.entry_password.delete(0, END)
         return
 
-
-    def get_data(self):
-        """self.design1=self.post.get()
-        if self.design1==1:
-            self.posting="Manager"
-        else:
-            self.posting="Employee"""
+    def fetch_all(self):
         self.get_post=self.post.get()
         self.user=self.entry_username.get()
         self.get_pass=self.entry_password.get()
-        obj.fetch_all(self.get_post,self.user, self.get_pass)
-        #print(self.posting)
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Login_post"]#collection name
+        if self.get_post==1:
+            result = Collection.find_one({"post":"Manager",
+                                      "Username":self.user,
+                                      "Password":self.get_pass},{"_id":0})
+            obj1.Gui()
+        elif self.get_post==2:
+            result = Collection.find_one({"post":"Employee",
+                                      "Username":self.user,
+                                      "Password":self.get_pass},{"_id":0})
+            obj2.Gui()
+        else:
+            print("fuck you")
+
+        print(result)
+        
+        
+
 
 
     def __init__(self):
@@ -79,7 +97,7 @@ class Login_Form(Tk):
         self.entry_password=Entry(login_form_frame, textvariable=password, bg="grey",font=2, width=25)
         self.entry_password.place(x=900, y=475)
 
-        login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold'),command=self.get_data).place(x=900, y=650)
+        login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold'),command=self.fetch_all).place(x=900, y=650)
         reset_button=Button(login_form_frame, text="Reset", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=self.reset).place(x=700, y=650)
         exit_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=logwin.destroy)
         exit_button.place(x=1100, y=650)

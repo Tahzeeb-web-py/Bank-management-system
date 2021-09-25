@@ -6,7 +6,7 @@ from tkinter import *
 
 
 class Manager():
-    def __init__(self):
+    def Gui(self):
 
         manager_window=tk.Tk()
         manager_window.geometry("1400x800")
@@ -14,7 +14,7 @@ class Manager():
         manager_window.mainloop()
 
 class Employee():
-    def __init__(self):
+    def Gui(self):
 
 
         emp_window=tk.Tk()
