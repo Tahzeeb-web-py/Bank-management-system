@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from tkinter import *
 from PIL import ImageTk, Image
 from tkinter import Entry
@@ -42,19 +43,24 @@ class Login_Form(Tk):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["Login_post"]#collection name
-        if self.get_post==1:
-            result = Collection.find_one({"post":"Manager",
+        result = Collection.find_one({"post":self.get_post,
                                       "Username":self.user,
                                       "Password":self.get_pass},{"_id":0})
-
-            obj1.Gui()
-        elif self.get_post==2:
-            result = Collection.find_one({"post":"Employee",
-                                      "Username":self.user,
-                                      "Password":self.get_pass},{"_id":0})
-            obj2.Gui()
+        x={'Username': self.user, 'Password': self.get_pass, 'post':self.get_post}
+        
+        if(x==result):
+            if(self.get_post=='Manager'):
+                
+                obj1.Gui()
+            elif(self.get_post=="Employee"):
+                obj2.Gui()
         else:
-            print("fuck you")
+            messagebox.showinfo("warning", "Your Entered Details are Wrong \n Please Enter correct Details")
+        
+        
+        
+       
+
 
         
         
@@ -79,16 +85,16 @@ class Login_Form(Tk):
 
 
         #LoginForm Frame
-        self.post=IntVar()
+        self.post=StringVar()
         username=StringVar()
         password=StringVar()
 
 
         login_form_frame=Frame(logwin, width=750, height=600, bg="white", borderwidth=5, relief="sunken").place(x=600, y=150)
         degisnation_label=Label(login_form_frame, text="Degisnation:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=375)
-        self.degisnation_radio1=Radiobutton(login_form_frame, text='Manager', variable=self.post, value=1,font=('arial', 13, 'bold'), bg='white')
+        self.degisnation_radio1=Radiobutton(login_form_frame, text='Manager', variable=self.post, value="Manager",font=('arial', 13, 'bold'), bg='white')
         self.degisnation_radio1.place(x=900, y=375)
-        self.degisnation_radio=Radiobutton(login_form_frame, text='Employee', variable=self.post, value=2,font=('arial', 13, 'bold'), bg='white')
+        self.degisnation_radio=Radiobutton(login_form_frame, text='Employee', variable=self.post, value="Employee",font=('arial', 13, 'bold'), bg='white')
         self.degisnation_radio.place(x=1050, y=375)
 
         Username_label=Label(login_form_frame, text="Username:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=425)

@@ -2,8 +2,16 @@ import tkinter as tk
 from tkinter import *
 
 
-
-
+class Deposit():
+    def Add_money(self):
+        Addmoney_win=tk.Tk()
+        Addmoney_win.geometry("2500x500+00+200")
+        Addmoney_win.title("Deposit Window")
+        Addmoney_win['bg']='white'
+        Addmoney_win.resizable(False, False)
+        Addmoney_win.mainloop()
+addmoneytoacc=Deposit()
+addmoneytoacc.Add_money()
 
 class Manager():
     def Gui(self):
@@ -32,13 +40,14 @@ class Manager():
         tk.Button(manager_window, height=2, text="Transactions", bg="white", width=30, borderwidth=2, fg="black",  activeforeground="White", activebackground="black",font=("arial", 10, "bold")). place(x=551,y=147)
         tk.Button(manager_window, height=2, text="View Balance", bg="white", width=40, borderwidth=2, fg="black",  activeforeground="White", activebackground="black",font=("arial", 10, "bold")). place(x=710,y=192)
         tk.Button(manager_window, height=2, text="Devoloper", bg="white", width=50, borderwidth=2, fg="black", activeforeground="White", activebackground="black", font=("arial", 10, "bold")). place(x=1040,y=192)
-        tk.Button(manager_window, height=2, text="Deposit", bg="white", width=30, borderwidth=2, activeforeground="White", activebackground="black",fg="black", font=("arial", 10, "bold")). place(x=300,y=147)
+        tk.Button(manager_window, height=2, text="Deposit", bg="white", width=30, borderwidth=2, activeforeground="White", activebackground="black",fg="black", font=("arial", 10, "bold"),command=addmoneytoacc.Add_money). place(x=300,y=147)
         tk.Button(manager_window, height=2, text="Profile of Customer", bg="white", width=40, borderwidth=2, fg="black",  activeforeground="White", activebackground="black", font=("arial", 10, "bold")). place(x=380,y=192)
         tk.Button(manager_window, height=2, text="Tranfer Amount", bg="white", width=30, borderwidth=2, fg="black", activeforeground="White", activebackground="black", font=("arial", 10, "bold")). place(x=801,y=147)
         tk.Button(manager_window, height=2, text="Request", bg="white", width=30, borderwidth=2, fg="black", activeforeground="White", activebackground="black", font=("arial", 10, "bold")). place(x=1051,y=147)
         tk.Button(manager_window, height=2, text="Login Out", bg="red", width=17, borderwidth=2, fg="White", activeforeground="black", activebackground="white", font=("arial", 10, "bold"), command=manager_window.destroy). place(x=1304,y=147)
 
         manager_window.mainloop()
+
 
 class Employee():
     def Gui(self):
