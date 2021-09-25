@@ -11,8 +11,9 @@ class Bank_data():
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["Login_post"]#collection name
         dic={
-                "Username":"Tahzeeb.py",
-            "Password":"Tahzeeb.py"
+                "Username":"Guddu.py",
+            "Password":"Guddu.py",
+            "post":"Employee"
         }
         insert=Collection.insert_one(dic)
 
@@ -52,3 +53,4 @@ class Bank_data():
 
 #obj=Bank_data()
 #obj.fetch_all("Tahzeeb.py", "Tahzeeb.py")
+#obj.test()

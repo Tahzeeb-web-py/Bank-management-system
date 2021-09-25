@@ -46,6 +46,7 @@ class Login_Form(Tk):
             result = Collection.find_one({"post":"Manager",
                                       "Username":self.user,
                                       "Password":self.get_pass},{"_id":0})
+
             obj1.Gui()
         elif self.get_post==2:
             result = Collection.find_one({"post":"Employee",
@@ -55,7 +56,7 @@ class Login_Form(Tk):
         else:
             print("fuck you")
 
-        print(result)
+        
         
         
 
