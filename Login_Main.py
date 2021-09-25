@@ -24,16 +24,23 @@ class Login_Form(Tk):
         self.help_win.mainloop()
 
     def reset(self):
-        
+
         self.entry_username.delete(0,END)
         self.entry_password.delete(0, END)
         return
 
 
     def get_data(self):
+        """self.design1=self.post.get()
+        if self.design1==1:
+            self.posting="Manager"
+        else:
+            self.posting="Employee"""
+        self.get_post=self.post.get()
         self.user=self.entry_username.get()
         self.get_pass=self.entry_password.get()
-        obj.fetch_all(self.user, self.get_pass)
+        obj.fetch_all(self.get_post,self.user, self.get_pass)
+        #print(self.posting)
 
 
     def __init__(self):
@@ -53,15 +60,17 @@ class Login_Form(Tk):
 
 
         #LoginForm Frame
-        post=IntVar()
+        self.post=IntVar()
         username=StringVar()
         password=StringVar()
 
 
         login_form_frame=Frame(logwin, width=750, height=600, bg="white", borderwidth=5, relief="sunken").place(x=600, y=150)
         degisnation_label=Label(login_form_frame, text="Degisnation:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=375)
-        degisnation_radio=Radiobutton(login_form_frame, text='Manager', variable=post, value=1,font=('arial', 13, 'bold'), bg='white').place(x=900, y=375)
-        degisnation_radio=Radiobutton(login_form_frame, text='Employee', variable=post, value=2,font=('arial', 13, 'bold'), bg='white').place(x=1050, y=375)
+        self.degisnation_radio1=Radiobutton(login_form_frame, text='Manager', variable=self.post, value=1,font=('arial', 13, 'bold'), bg='white')
+        self.degisnation_radio1.place(x=900, y=375)
+        self.degisnation_radio=Radiobutton(login_form_frame, text='Employee', variable=self.post, value=2,font=('arial', 13, 'bold'), bg='white')
+        self.degisnation_radio.place(x=1050, y=375)
 
         Username_label=Label(login_form_frame, text="Username:",font=('arial', 18, 'bold'), bg="white").place(x=700,y=425)
         self.entry_username=Entry(login_form_frame, textvariable=username, bg="grey",font=2, width=25)
