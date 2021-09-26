@@ -5,6 +5,24 @@ from pymongo import MongoClient
 class Bank_data():
 
 
+    def Add_account(self, Account_no, Account_customer, Account_name, Account_age, Account_dob, Account_aadhar, Account_pan, Account_add, Account_amt, Account_type):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Login_post"]#collection name
+        dic_add={
+            "AccountNo":Account_no,
+            "CustomerId":Account_customer,
+            "Name":Account_name,
+            "Age":Account_age,
+            "Dob":Account_dob,
+            "AadharNO":Account_aadhar,
+            "PanCard":Account_pan,
+            "Address":Account_add,
+            "Amount":Account_amt,
+            "AccountType":Account_type
+        }
+        insert=Collection.insert_one(dic_add)
+
 
     def test(self):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
@@ -17,11 +35,22 @@ class Bank_data():
         }
         insert=Collection.insert_one(dic)
 
+    def Deposit(self, accuum):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Login_post"]#collection name
+        filter = { 'Account_number': accnum }
+        newvalues = { "$set": { 'Amount': 25 } }
+
+        Collection.update_one(filter, newvalues) 
+        dic={
+
+        }
+        
+
 
 
     def add_user(self, designation, user_name, Pasword):
-
-
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["Login_post"]#collection name
