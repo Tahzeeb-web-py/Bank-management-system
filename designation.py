@@ -3,13 +3,13 @@ from tkinter import *
 
 
 
-class Add_customer():
+class Account():
         def add(self):
                 addNew_customer=tk.Tk()
                 addNew_customer.geometry("950x530+100+100")
                 addNew_customer.title("Add Customer Window")
                 addNew_customer['bg']='grey'
-                addNew_customer.place_slaves()
+                
 
                 Var_first_name=StringVar()
                 var_last_name=StringVar()
@@ -76,7 +76,90 @@ class Add_customer():
 
                 addNew_customer.mainloop()
 
-objAdd_customer= Add_customer()
+                
+        def delete(self):
+                dele_customer=tk.Tk()
+                dele_customer.geometry("950x530+100+100")
+                dele_customer.title("Delete Customer Window")
+                dele_customer['bg']='grey'
+                heading_frame=Frame(dele_customer, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
+                middle_frame=Frame(dele_customer, width=850, height=350, bg='White', relief=RIDGE).place(x=50, y=90)
+                futter_frame=Frame(dele_customer, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=450)
+                label_firstname=Label(dele_customer, text='Close Account',bg="White",font=('arail', 20, 'bold')).place(x=350, y=30)
+                label_firstname=Label(dele_customer, text='Name of Account Holder:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=130)
+                FirstName=Entry(dele_customer, width=35)
+                FirstName.place(x=300, y=130)
+                label_firstname=Label(dele_customer, text='Account Number:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=170)
+                FirstName=Entry(dele_customer, width=35)
+                FirstName.place(x=300, y=170)
+                label_firstname=Label(dele_customer, text='Mobile Number:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=210)
+                FirstName=Entry(dele_customer, width=35)
+                FirstName.place(x=300, y=210)
+                label_firstname=Label(dele_customer, text='Date of closing:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=250)
+
+
+                label_firstname=Label(dele_customer, text='Remark:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=290)
+                FirstName=Entry(dele_customer, width=35)
+                FirstName.place(x=300, y=290)
+
+                label_firstname=Label(dele_customer, text='Verify by:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=340)
+
+
+                
+                exit_button_delecustomer=Button(dele_customer, text='Exit', bg='red', fg='Black', width=15,command=dele_customer.destroy,font=('arail', 12, 'bold'))
+                exit_button_delecustomer.place(x=380, y=470)
+                reset_button_delecustomer=Button(dele_customer, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'))
+                reset_button_delecustomer.place(x=100, y=470)
+                Delete_button_delecustomer=Button(dele_customer, text='Close Account', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'))
+                Delete_button_delecustomer.place(x=680, y=470)
+                dele_customer.resizable(False, False)
+                dele_customer.mainloop()
+
+        def Add_user_bank(self):
+                add_user=tk.Tk()
+                add_user.geometry("950x530+100+100")
+                add_user.title("Delete Customer Window")
+                add_user['bg']='grey'
+                heading_frame=Frame(add_user, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
+                middle_frame=Frame( add_user, width=850, height=350, bg='White', relief=RIDGE).place(x=50, y=90)
+                futter_frame=Frame( add_user, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=450)
+                label_firstname=Label(add_user, text='Add Bank Employee',bg="White",font=('arail', 20, 'bold')).place(x=350, y=30)
+                label_firstname=Label(add_user, text='Name of Employee:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=130)
+                FirstName=Entry(add_user, width=35)
+                FirstName.place(x=300, y=130)
+                label_firstname=Label(add_user, text='Username:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=170)
+                FirstName=Entry(add_user, width=35)
+                FirstName.place(x=300, y=170)
+                label_firstname=Label(add_user, text='Mobile Number:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=250)
+                FirstName=Entry(add_user, width=35)
+                FirstName.place(x=300, y=250)
+                label_firstname=Label(add_user, text='Password:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=210)
+                FirstName=Entry(add_user, width=35)
+                FirstName.place(x=300, y=210)
+
+                label_firstname=Label(add_user, text='Post:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=290)
+                FirstName=Entry(add_user, width=35)
+                FirstName.place(x=300, y=290)
+
+                label_firstname=Label(add_user, text='Verify by:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=340)
+
+
+                
+                exit_button_delecustomer=Button(add_user, text='Exit', bg='red', fg='Black', width=15,command=add_user.destroy,font=('arail', 12, 'bold'))
+                exit_button_delecustomer.place(x=380, y=470)
+                reset_button_delecustomer=Button(add_user, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'))
+                reset_button_delecustomer.place(x=100, y=470)
+                Delete_button_delecustomer=Button(add_user, text='Close Account', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'))
+                Delete_button_delecustomer.place(x=680, y=470)
+                add_user.resizable(False, False)
+                add_user.mainloop()
+
+
+
+
+objAdd_customer= Account()
+
+
 
 
 
@@ -144,8 +227,8 @@ class Manager():
         #tk.Frame(manager_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(manager_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(manager_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
-        tk.Button(manager_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold")).place(x= 505, y=57)
-        tk.Button(manager_window, height=2, text="New Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 725, y=10)
+        tk.Button(manager_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold"), command=objAdd_customer.delete).place(x= 505, y=57)
+        tk.Button(manager_window, height=2, text="New Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
         tk.Button(manager_window, height=2, text="Delete Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 725, y=57)
         tk.Button(manager_window, height=2, text="Updata Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
         tk.Button(manager_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=57)
@@ -219,7 +302,7 @@ class Employee():
 
         emp_window=tk.Tk()
         emp_window.geometry("1500x900")
-        emp_window.title("Employese Window")
+        emp_window.title("Employee Window")
         
 #datatype declaration for deposit part---------------------------------------------------
         self.depositmoney=StringVar()
@@ -251,8 +334,8 @@ class Employee():
         #tk.Frame(emp_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(emp_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(emp_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
-        tk.Button(emp_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold")).place(x= 505, y=57)
-        tk.Button(emp_window, height=2, text="New Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 725, y=10)
+        tk.Button(emp_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold"), command=objAdd_customer.delete).place(x= 505, y=57)
+        tk.Button(emp_window, height=2, text="New Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
         tk.Button(emp_window, height=2, text="Delete Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 725, y=57)
         tk.Button(emp_window, height=2, text="Updata Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
         tk.Button(emp_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=57)
