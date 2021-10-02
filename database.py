@@ -5,23 +5,30 @@ from pymongo import MongoClient
 class Bank_data():
 
 
-    def Add_account(self, Account_no, Account_customer, Account_name, Account_age, Account_dob, Account_aadhar, Account_pan, Account_add, Account_amt, Account_type):
+    def Add_account(self,Accountno,FirstName, LastName, FatherName, MotherName, ContactNo, AadharNo, PanCard, Dob,Address, City, Zip, Gender, AlternativeNo, Amount):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
-        Collection = db["Login_post"]#collection name
+        Collection = db["Accounts"]#collection name
         dic_add={
-            "AccountNo":Account_no,
-            "CustomerId":Account_customer,
-            "Name":Account_name,
-            "Age":Account_age,
-            "Dob":Account_dob,
-            "AadharNO":Account_aadhar,
-            "PanCard":Account_pan,
-            "Address":Account_add,
-            "Amount":Account_amt,
-            "AccountType":Account_type
+            'Account No':Accountno,'First Name':FirstName,
+        'Last Name':LastName,
+        "Father's Name":FatherName,
+        "Mother's Name":MotherName,
+        'Contact No':ContactNo, 
+        'Alternative No':AlternativeNo,
+        'Aadhar No':AadharNo, 
+        'Pan No':PanCard, 
+        'Date of Birth':Dob,
+        'Address':Address, 
+        'City':City, 
+        'Address code':Zip, 
+        'Sex':Gender, 
+        'Amount':Amount
+
+            
         }
         insert=Collection.insert_one(dic_add)
+        #print(dic_add)
 
 
     def test(self):
@@ -35,12 +42,12 @@ class Bank_data():
         }
         insert=Collection.insert_one(dic)
 
-    def Deposit(self, accuum):
+    def Deposit(self, accuum,amt):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["Login_post"]#collection name
         filter = { 'Account_number': accnum }
-        newvalues = { "$set": { 'Amount': 25 } }
+        newvalues = { "$set": { 'Amount': amt} }
 
         Collection.update_one(filter, newvalues) 
         dic={

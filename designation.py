@@ -1,16 +1,48 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import OptionMenu
+from tkcalendar import Calendar
+from database import Bank_data
+import pymongo
+from pymongo import MongoClient
+import random
+from random import randrange
 
 
+obj=Bank_data()
 
 class Account():
+        
+        
+        def senddata(self):
+                self.gen1=self.gen.get()
+                self.Accountno=randrange(999, 9999)
+                
+                send_data=obj.Add_account(self.Accountno,self.FirstName.get(),self.LastName.get(),self.FatherName.get(), self.MotherName.get(), self.Contactnum.get(), self.Aadharnum.get(), self.Pan.get(),self.cal.get_date(), self.Address.get(),self.City.get(), self.Zipcode.get(), self.gen1, self.Alternativenum.get(),self.Depo_amount.get())
+                #print(send_data)
+        def reset(self):
+                self.FirstName.delete(0,END)
+                self.LastName.delete(0,END)
+                self.FatherName.delete(0,END)
+                self.MotherName.delete(0,END)
+                self.Contactnum.delete(0,END)
+                self.Aadharnum.delete(0,END)
+                self.Pan.delete(0,END)
+                self.Address.delete(0,END)
+                self.City.delete(0,END)
+                self.Zipcode.delete(0,END)
+                self.Alternativenum.delete(0,END)
+                self.Depo_amount.delete(0,END)
         def add(self):
+               
+                #print(Accountno)
+                
                 addNew_customer=tk.Tk()
-                addNew_customer.geometry("950x530+100+100")
+                addNew_customer.geometry("950x700+100+100")
                 addNew_customer.title("Add Customer Window")
                 addNew_customer['bg']='grey'
                 
-
+              
                 Var_first_name=StringVar()
                 var_last_name=StringVar()
                 var_father_name=StringVar()
@@ -19,85 +51,82 @@ class Account():
                 var_aadhar_num=StringVar()
                 var_pan_num=StringVar()
                 var_dob=StringVar()
-                D=tk.StringVar(addNew_customer)
-                M=tk.StringVar(addNew_customer)
-                Y=tk.StringVar(addNew_customer)
+                self.D=tk.StringVar(addNew_customer)
+                self.M=tk.StringVar(addNew_customer)
+                self.Y=tk.StringVar(addNew_customer)
                 var_alternative_num=StringVar()
                 var_gender=StringVar()
                 var_address=StringVar()
                 var_city=StringVar()
-                var_zip_code=IntVar()
-                var_Deposit=IntVar()
+                var_zip_code=StringVar()
+                var_Deposit=StringVar()
+                self.gen=StringVar(addNew_customer)
+                dob=StringVar()
+                
                 heading_frame=Frame(addNew_customer, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
-                middle_frame=Frame(addNew_customer, width=850, height=350, bg='White', relief=RIDGE).place(x=50, y=90)
-                futter_frame=Frame(addNew_customer, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=450)
+                middle_frame=Frame(addNew_customer, width=850, height=510, bg='White', relief=RIDGE).place(x=50, y=90)
+                futter_frame=Frame(addNew_customer, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=610)
 
                 label_firstname=Label(addNew_customer, text='New Account Opening',bg="White",font=('arail', 20, 'bold')).place(x=330, y=30)
                 label_firstname=Label(addNew_customer, text='First Name',font=('arail', 12, 'bold'), bg='White').place(x=70, y=130)
-                FirstName=Entry(addNew_customer, textvariable=Var_first_name, width=35)
-                FirstName.place(x=220, y=130)
+                self.FirstName=Entry(addNew_customer, textvariable=Var_first_name, width=35)
+                self.FirstName.place(x=220, y=130)
                 label_firstname=Label(addNew_customer, text='Last Name',font=('arail', 12, 'bold'), bg='White').place(x=70, y=170)
-                LastName=Entry(addNew_customer, textvariable=var_last_name, width=35)
-                LastName.place(x=220, y=170)
+                self.LastName=Entry(addNew_customer, textvariable=var_last_name, width=35)
+                self.LastName.place(x=220, y=170)
                 label_firstname=Label(addNew_customer, text="Father's Name",font=('arail', 12, 'bold'), bg='White').place(x=70, y=210)
-                FatherName=Entry(addNew_customer, textvariable=var_father_name, width=35)
-                FatherName.place(x=220, y=210)
+                self.FatherName=Entry(addNew_customer, textvariable=var_father_name, width=35)
+                self.FatherName.place(x=220, y=210)
                 label_firstname=Label(addNew_customer, text="Mothet's Name",font=('arail', 12, 'bold'), bg='White').place(x=70, y=250)
-                MotherName=Entry(addNew_customer, textvariable=var_mother_name, width=35)
-                MotherName.place(x=220, y=250)
+                self.MotherName=Entry(addNew_customer, textvariable=var_mother_name, width=35)
+                self.MotherName.place(x=220, y=250)
                 label_firstname=Label(addNew_customer, text='Contact No.',font=('arail', 12, 'bold'), bg='White').place(x=70, y=290)
-                Contactnum=Entry(addNew_customer, textvariable=var_contact_num, width=35)
-                Contactnum.place(x=220, y=290)
+                self.Contactnum=Entry(addNew_customer, textvariable=var_contact_num, width=35)
+                self.Contactnum.place(x=220, y=290)
                 label_firstname=Label(addNew_customer, text='Aadhar Card No',font=('arail', 12, 'bold'), bg='White').place(x=70, y=330)
-                Aadharnum=Entry(addNew_customer, textvariable=var_aadhar_num, width=35)
-                Aadharnum.place(x=220, y=330)
+                self.Aadharnum=Entry(addNew_customer, textvariable=var_aadhar_num, width=35)
+                self.Aadharnum.place(x=220, y=330)
                 label_firstname=Label(addNew_customer, text='Pan Card',font=('arail', 12, 'bold'), bg='White').place(x=70, y=370)
-                Pan=Entry(addNew_customer, textvariable=var_pan_num, width=35)
-                Pan.place(x=220, y=370)
+                self.Pan=Entry(addNew_customer, textvariable=var_pan_num, width=35)
+                self.Pan.place(x=220, y=370)
                 label_firstname=Label(addNew_customer, text='Date of Birth',font=('arail', 12, 'bold'), bg='White').place(x=70, y=410)
-                dates = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
-                Months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-                Year = ['1981','1982','1983','1984','1985','1986','1987','1988','1989','1990','1991','1992','1993','1994','1995','1996','1997','1998','1999','2000','2001',
-                '2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020' ];
+                  
+                self.cal=Calendar(addNew_customer, selectmode='day', year=2000, month=1, days=22)
+                self.cal.place(x=220, y=410)
 
-
-                droplist= OptionMenu(addNew_customer, D, *dates)
-                droplist.config(width=7)
-                D.set("Date") 
-                droplist.place(x=220,y=400)
-                droplist= OptionMenu(addNew_customer, M, *Months)
-                droplist.config(width=7)
-                M.set("Month") 
-                droplist.place(x=300,y=400)
-                droplist= OptionMenu(addNew_customer, Y, *Year)
-                droplist.config(width=7)
-                Y.set("Year") 
-                droplist.place(x=380,y=400)
-
-
-                label_firstname=Label(addNew_customer, text='Alternative No',font=('arail', 12, 'bold'), bg='White').place(x=500, y=290)
-                Alternativenum=Entry(addNew_customer, textvariable=var_alternative_num, width=35)
-                Alternativenum.place(x=650, y=290)
+                label_firstname=Label(addNew_customer, text='Alternative No',font=('arail', 12, 'bold'), bg='White').place(x=500, y=330)
+                self.Alternativenum=Entry(addNew_customer, textvariable=var_alternative_num, width=35)
+                self.Alternativenum.place(x=650, y=330)
                 label_firstname=Label(addNew_customer, text='Gender',font=('arail', 12, 'bold'), bg='White').place(x=500, y=250)
+                self.degisnation_radio1=Radiobutton(addNew_customer, text='Male', variable= self.gen, value='Male',font=('arial', 13, 'bold'), bg='white')
+                self.degisnation_radio1.place(x=650, y=250)
+                self.degisnation_radio=Radiobutton(addNew_customer, text='Female', variable=self.gen, value='Female',font=('arial', 13, 'bold'), bg='white')
+                self.degisnation_radio.place(x=790, y=250)
+                self.degisnation_radio1=Radiobutton(addNew_customer, text='Trans', variable=self.gen, value='Trans',font=('arial', 13, 'bold'), bg='white')
+                self.degisnation_radio1.place(x=650, y=290)
+                self.degisnation_radio=Radiobutton(addNew_customer, text='Other', variable= self.gen, value='Other',font=('arial', 13, 'bold'), bg='white')
+                self.degisnation_radio.place(x=790, y=290)
                 label_firstname=Label(addNew_customer, text='Address',font=('arail', 12, 'bold'), bg='White').place(x=500, y=130)
-                Address=Entry(addNew_customer, textvariable=var_address, width=35)
-                Address.place(x=650, y=130)
+                self.Address=Entry(addNew_customer, textvariable=var_address, width=35)
+                self.Address.place(x=650, y=130)
                 label_firstname=Label(addNew_customer, text='City',font=('arail', 12, 'bold'), bg='White').place(x=500, y=170)
-                City=Entry(addNew_customer, textvariable=var_city, width=35)
-                City.place(x=650, y=170)
+                self.City=Entry(addNew_customer, textvariable=var_city, width=35)
+                self.City.place(x=650, y=170)
                 label_firstname=Label(addNew_customer, text='Zip Code',font=('arail', 12, 'bold'), bg='White').place(x=500, y=210)
-                Zipcode=Entry(addNew_customer, textvariable=var_zip_code, width=35)
-                Zipcode.place(x=650, y=210)
-                label_firstname=Label(addNew_customer, text='Opening Deposit',font=('arail', 12, 'bold'), bg='White').place(x=500, y=330)
-                Zipcode=Entry(addNew_customer, textvariable=var_Deposit, width=35)
-                Zipcode.place(x=650, y=330)
+                self.Zipcode=Entry(addNew_customer, textvariable=var_zip_code, width=35)
+                self.Zipcode.place(x=650, y=210)
+                Amount_depo=Label(addNew_customer, text='Opening Deposit',font=('arail', 12, 'bold'), bg='White').place(x=500, y=370)
+                self.Depo_amount=Entry(addNew_customer, textvariable=var_Deposit, width=35)
+                self.Depo_amount.place(x=650, y=370)
 
+               
+                
                 exit_button_addcustomer=Button(addNew_customer, text='Exit', bg='red', fg='Black', width=15,command=addNew_customer.destroy,font=('arail', 12, 'bold'))
-                exit_button_addcustomer.place(x=380, y=470)
-                reset_button_addcustomer=Button(addNew_customer, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'))
-                reset_button_addcustomer.place(x=100, y=470)
-                Save_button_addcustomer=Button(addNew_customer, text='Add', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'))
-                Save_button_addcustomer.place(x=680, y=470)
+                exit_button_addcustomer.place(x=380, y=630)
+                reset_button_addcustomer=Button(addNew_customer, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'), command=self.reset)
+                reset_button_addcustomer.place(x=100, y=630)
+                self.Save_button_addcustomer=Button(addNew_customer, text='Add', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'), command=self.senddata)
+                self.Save_button_addcustomer.place(x=680, y=630)
                 addNew_customer.resizable(False, False)
 
 
