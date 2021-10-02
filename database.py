@@ -50,13 +50,25 @@ class Bank_data():
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["Login_post"]#collection name
-        dic={"Name":user_name,
-                "Username":username,
+        dic={"Name":username,
+                "Username":user_name,
             "Password":password,
             "post":post,
             "Contact No":no_mobile
         }
         insert=Collection.insert_one(dic)
+
+    def delete_user(self, del_username, del_pass, del_mobile_no):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Login_post"]#collection name
+        dic={
+            "Username":del_username,
+            "Password":del_pass,
+            "Contact No":del_mobile_no
+        }
+        Collection.delete_one(dic)
+        print(dic)
 
     def Deposit(self, accuum,amt):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
