@@ -10,35 +10,37 @@ class Bank_data():
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["Accounts"]#collection name
         dic_add={
-            'Account No':Accountno,'First Name':FirstName,
-        'Last Name':LastName,
-        "Father's Name":FatherName,
-        "Mother's Name":MotherName,
-        'Contact No':ContactNo, 
-        'Alternative No':AlternativeNo,
-        'Aadhar No':AadharNo, 
-        'Pan No':PanCard, 
-        'Date of Birth':Dob,
-        'Address':Address, 
-        'City':City, 
-        'Address code':Zip, 
-        'Sex':Gender, 
-        'Amount':Amount
+            'Account No':Accountno,
+            'First Name':FirstName,
+            'Last Name':LastName,
+            "Father's Name":FatherName,
+            "Mother's Name":MotherName,
+            'Contact No':ContactNo, 
+            'Alternative No':AlternativeNo,
+            'Aadhar No':AadharNo, 
+            'Pan No':PanCard, 
+            'Date of Birth':Dob,
+            'Address':Address, 
+            'City':City, 
+            'Address code':Zip, 
+            'Sex':Gender, 
+            'Amount':Amount
 
             
         }
         insert=Collection.insert_one(dic_add)
-        #print(dic_add)
+        print(dic_add)
 
 
-    def test(self):
+    def Add_Newuser(self, username, user_name, password, post, no_mobile):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["Login_post"]#collection name
-        dic={
-                "Username":"Guddu.py",
-            "Password":"Guddu.py",
-            "post":"Employee"
+        dic={"Name":user_name,
+                "Username":username,
+            "Password":password,
+            "post":post,
+            "Contact No":no_mobile
         }
         insert=Collection.insert_one(dic)
 

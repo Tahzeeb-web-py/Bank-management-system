@@ -15,6 +15,7 @@ class Account():
         
         
         def senddata(self):
+                
                 self.gen1=self.gen.get()
                 self.Accountno=randrange(999, 9999)
                 
@@ -36,7 +37,7 @@ class Account():
         def add(self):
                
                 #print(Accountno)
-                
+                global addNew_customer
                 addNew_customer=tk.Tk()
                 addNew_customer.geometry("950x700+100+100")
                 addNew_customer.title("Add Customer Window")
@@ -125,7 +126,7 @@ class Account():
                 exit_button_addcustomer.place(x=380, y=630)
                 reset_button_addcustomer=Button(addNew_customer, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'), command=self.reset)
                 reset_button_addcustomer.place(x=100, y=630)
-                self.Save_button_addcustomer=Button(addNew_customer, text='Add', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'), command=self.senddata)
+                self.Save_button_addcustomer=Button(addNew_customer, text='Add', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'), command=lambda:[self.senddata(),addNew_customer.destroy()])
                 self.Save_button_addcustomer.place(x=680, y=630)
                 addNew_customer.resizable(False, False)
 
@@ -171,6 +172,10 @@ class Account():
                 dele_customer.resizable(False, False)
                 dele_customer.mainloop()
 
+        def send_data_add_user(self):
+                obj.Add_Newuser(self.EmpName.get(), self.addusername.get(), self.addpassword.get(), self.add_post.get(), self.no_mobile.get())
+
+
         def Add_user_bank(self):
                 add_user=tk.Tk()
                 add_user.geometry("950x530+100+100")
@@ -180,35 +185,37 @@ class Account():
                 add_username=StringVar()
                 add_mobile=StringVar()
                 add_password=StringVar()
-                add_post=StringVar()
-                add_varify=StringVar()
+                self.add_post=StringVar(add_user)
+                self.add_varify=StringVar(add_user)
 
                 heading_frame=Frame(add_user, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
                 middle_frame=Frame( add_user, width=850, height=350, bg='White', relief=RIDGE).place(x=50, y=90)
                 futter_frame=Frame( add_user, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=450)
                 label_firstname=Label(add_user, text='Add Bank Employee',bg="White",font=('arail', 20, 'bold')).place(x=350, y=30)
                 label_firstname=Label(add_user, text='Name of Employee:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=130)
-                FirstName=Entry(add_user, width=35)
-                FirstName.place(x=300, y=130)
+                self.EmpName=Entry(add_user,textvariable=add_Empname, width=35)
+                self.EmpName.place(x=300, y=130)
                 label_firstname=Label(add_user, text='Username:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=170)
-                addusername=Entry(add_user,textvariable=add_username, width=35)
-                addusername.place(x=300, y=170)
+                self.addusername=Entry(add_user,textvariable=add_username, width=35)
+                self.addusername.place(x=300, y=170)
                 label_firstname=Label(add_user, text='Mobile Number:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=250)
-                addmobile=Entry(add_user,textvariable=add_mobile, width=35)
-                addmobile.place(x=300, y=250)
+                self.no_mobile=Entry(add_user,textvariable=add_mobile, width=35)
+                self.no_mobile.place(x=300, y=250)
                 label_firstname=Label(add_user, text='Password:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=210)
-                addpassword=Entry(add_user,textvariable=add_password, width=35)
-                addpassword.place(x=300, y=210)
+                self.addpassword=Entry(add_user,textvariable=add_password, width=35)
+                self.addpassword.place(x=300, y=210)
 
                 label_firstname=Label(add_user, text='Post:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=290)
-                select_post=Radiobutton(add_user, text='Manager', variable=add_post, bg='White',value=1)
-                select_post.place(x=300, y=290)
-                select_post=Radiobutton(add_user, text='Employee', variable=add_post,bg='White', value=2)
-                select_post.place(x=420, y=290)
+                self.select_post=Radiobutton(add_user, text='Manager', variable=self.add_post, bg='White',value='Manager')
+                self.select_post.place(x=300, y=290)
+                self.select_post=Radiobutton(add_user, text='Employee', variable=self.add_post,bg='White', value='Employee')
+                self.select_post.place(x=420, y=290)
+                self.select_post=Radiobutton(add_user, text='Staff', variable=self.add_post,bg='White', value='Staff')
+                self.select_post.place(x=540, y=290)
 
                 label_firstname=Label(add_user, text='Verify by:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=340)
-                select_varification=Radiobutton(add_user, text='Manager', variable=add_varify, bg='White',value=1)
-                select_varification.place(x=300, y=340)
+                self.select_varification=Radiobutton(add_user, text='Manager', variable=self.add_varify, bg='White',value='Manager')
+                self.select_varification.place(x=300, y=340)
                 
 
                 
@@ -216,7 +223,7 @@ class Account():
                 exit_button_delecustomer.place(x=380, y=470)
                 reset_button_delecustomer=Button(add_user, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'))
                 reset_button_delecustomer.place(x=100, y=470)
-                Delete_button_delecustomer=Button(add_user, text='Close Account', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'))
+                Delete_button_delecustomer=Button(add_user, text='Add Account', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'),command=lambda:[self.send_data_add_user(), add_user.destroy()])
                 Delete_button_delecustomer.place(x=680, y=470)
                 add_user.resizable(False, False)
                 add_user.mainloop()
