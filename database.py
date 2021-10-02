@@ -5,6 +5,20 @@ from pymongo import MongoClient
 class Bank_data():
 
 
+
+
+
+    def delete_account(self, del_Accountno,del_aadharno):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Accounts"]#collection name
+        dic_delete={'Account No':del_Accountno,
+        'Aadhar No':del_aadharno
+        }
+        Collection.delete_one(dic_delete)
+        print(del_Accountno)
+
+
     def Add_account(self,Accountno,FirstName, LastName, FatherName, MotherName, ContactNo, AadharNo, PanCard, Dob,Address, City, Zip, Gender, AlternativeNo, Amount):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name

@@ -17,7 +17,8 @@ class Account():
         def senddata(self):
                 
                 self.gen1=self.gen.get()
-                self.Accountno=randrange(999, 9999)
+                self.no=randrange(999, 9999)
+                self.Accountno=str(self.no)
                 
                 send_data=obj.Add_account(self.Accountno,self.FirstName.get(),self.LastName.get(),self.FatherName.get(), self.MotherName.get(), self.Contactnum.get(), self.Aadharnum.get(), self.Pan.get(),self.cal.get_date(), self.Address.get(),self.City.get(), self.Zipcode.get(), self.gen1, self.Alternativenum.get(),self.Depo_amount.get())
                 #print(send_data)
@@ -132,46 +133,69 @@ class Account():
 
 
                 addNew_customer.mainloop()
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
 
-                
+
+
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------              
+        def send_data_delete_customer(self):
+                obj.delete_account(self.Account_num.get(), self.Aadhar_num.get())
+                print(self.Account_num.get())
         def delete(self):
                 dele_customer=tk.Tk()
                 dele_customer.geometry("950x530+100+100")
                 dele_customer.title("Delete Customer Window")
                 dele_customer['bg']='grey'
+
+                var_del_accno=StringVar()
+                var_del_aadharno=StringVar()
+                var_remark=StringVar()
+                var_acc_name=StringVar()
+                var_date=StringVar()
+                self.var_verify=StringVar(dele_customer)
                 heading_frame=Frame(dele_customer, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
                 middle_frame=Frame(dele_customer, width=850, height=350, bg='White', relief=RIDGE).place(x=50, y=90)
                 futter_frame=Frame(dele_customer, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=450)
                 label_firstname=Label(dele_customer, text='Close Account',bg="White",font=('arail', 20, 'bold')).place(x=350, y=30)
                 label_firstname=Label(dele_customer, text='Name of Account Holder:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=130)
-                FirstName=Entry(dele_customer, width=35)
+                FirstName=Entry(dele_customer,textvariable=var_acc_name, width=35)
                 FirstName.place(x=300, y=130)
                 label_firstname=Label(dele_customer, text='Account Number:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=170)
-                FirstName=Entry(dele_customer, width=35)
-                FirstName.place(x=300, y=170)
-                label_firstname=Label(dele_customer, text='Mobile Number:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=210)
-                FirstName=Entry(dele_customer, width=35)
-                FirstName.place(x=300, y=210)
+                self.Account_num=Entry(dele_customer,textvariable=var_del_accno, width=35)
+                self.Account_num.place(x=300, y=170)
+                label_firstname=Label(dele_customer, text='Aadhar No:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=210)
+                self.Aadhar_num=Entry(dele_customer,textvariable=var_del_aadharno, width=35)
+                self.Aadhar_num.place(x=300, y=210)
                 label_firstname=Label(dele_customer, text='Date of closing:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=250)
-
+                
 
                 label_firstname=Label(dele_customer, text='Remark:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=290)
-                FirstName=Entry(dele_customer, width=35)
+                FirstName=Entry(dele_customer,textvariable=var_remark, width=35)
                 FirstName.place(x=300, y=290)
 
                 label_firstname=Label(dele_customer, text='Verify by:',font=('arail', 12, 'bold'), bg='White').place(x=70, y=340)
-
+                dateofcloseing=Radiobutton(dele_customer, variable=self.var_verify, value='Manager', text='Manager')
+                dateofcloseing.place(x=300, y=340)
+                dateofcloseing=Radiobutton(dele_customer, variable=self.var_verify, value='Employee', text='Employee')
+                dateofcloseing.place(x=400,y=340)
 
                 
                 exit_button_delecustomer=Button(dele_customer, text='Exit', bg='red', fg='Black', width=15,command=dele_customer.destroy,font=('arail', 12, 'bold'))
                 exit_button_delecustomer.place(x=380, y=470)
                 reset_button_delecustomer=Button(dele_customer, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'))
                 reset_button_delecustomer.place(x=100, y=470)
-                Delete_button_delecustomer=Button(dele_customer, text='Close Account', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'))
+                Delete_button_delecustomer=Button(dele_customer, text='Close Account', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'), command=lambda:[self.send_data_delete_customer(), dele_customer.destroy()])
                 Delete_button_delecustomer.place(x=680, y=470)
                 dele_customer.resizable(False, False)
                 dele_customer.mainloop()
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         def send_data_add_user(self):
                 obj.Add_Newuser(self.EmpName.get(), self.addusername.get(), self.addpassword.get(), self.add_post.get(), self.no_mobile.get())
 
@@ -227,7 +251,11 @@ class Account():
                 Delete_button_delecustomer.place(x=680, y=470)
                 add_user.resizable(False, False)
                 add_user.mainloop()
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         def delete_user_bank(self):
                 add_user=tk.Tk()
                 add_user.geometry("950x530+100+100")
@@ -258,7 +286,7 @@ class Account():
                 add_user.resizable(False, False)
                 add_user.mainloop()
 
-
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 objAdd_customer= Account()
 
 
