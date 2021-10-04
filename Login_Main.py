@@ -45,15 +45,18 @@ class Login_Form(Tk):
         Collection = db["Login_post"]#collection name
         result = Collection.find_one({"post":self.get_post,
                                       "Username":self.user,
-                                      "Password":self.get_pass},{"_id":0})
+                                      "Password":self.get_pass},{"_id":0, "Name":0, "Contact No":0})
         x={'Username': self.user, 'Password': self.get_pass, 'post':self.get_post}
-        
+        print(x)
+        print(result)
         if(x==result):
             if(self.get_post=='Manager'):
                 
                 obj1.Gui()
+                
             elif(self.get_post=="Employee"):
                 obj2.Gui()
+               
         else:
             messagebox.showinfo("warning", "Your Entered Details are Wrong \n Please Enter correct Details")
         

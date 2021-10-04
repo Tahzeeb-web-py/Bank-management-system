@@ -118,3 +118,15 @@ class Bank_data():
 #obj=Bank_data()
 #obj.fetch_all("Tahzeeb.py", "Tahzeeb.py")
 #obj.test()
+
+    def get_data_emp(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Login_post"]#collection name
+        dic=Collection.find({},
+            {
+            "_id":0
+            }
+            )
+        #print(dic)
+        return dic

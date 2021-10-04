@@ -16,3 +16,9 @@ total files to be created are
 4. Read me(This is text file)
 
 Git repositiry will also created to push this project on github.com
+
+
+
+In designation.py file consist of 3 classes(Account, Manager, Employee):
+all the classes are in use
+Account class consist of method(Employee_list, senddata,reset, add,send_data_delete_customer,delete, send_data_add_user, Add_user_bank, delete_user_bank, send_delete_data, reset_delete_user_bank )

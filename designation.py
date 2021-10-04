@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import *
 from tkinter import OptionMenu
 from tkcalendar import Calendar
@@ -9,10 +10,80 @@ import random
 from random import randrange
 
 
-obj=Bank_data()
+obj=Bank_data()#database.py object Created..........
 
+
+
+#..................................Class Account....................................................................................................
 class Account():
-        
+        def Employee_list(self):
+                obj.get_data_emp()
+                emp_list=tk.Tk()
+                emp_list.geometry("950x700")
+                emp_list.title('Employee list')
+                emp_list['bg']='grey'
+
+
+                search_var=StringVar()
+
+                heading_frame=Frame(emp_list, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
+                middle_frame=Frame(emp_list,width=850, height=510, bg='White', relief=RIDGE).place(x=50, y=90)
+                futter_frame=Frame(emp_list,width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=610)
+                label_firstname=Label(emp_list, text='Employee List',bg="White",font=('arail', 20, 'bold')).place(x=370, y=30)
+
+                column_emp=('#1','#2','#3','#4','#5')
+
+                tree_emp=ttk.Treeview(emp_list, columns=column_emp, show='headings', height=23)
+
+                #tree_emp.column('#0',anchor=CENTER, width=1)
+                tree_emp.column('#1',anchor=CENTER, width=160)
+                tree_emp.column('#2',anchor=CENTER, width=160)
+                tree_emp.column('#3',anchor=CENTER, width=160)
+                tree_emp.column('#4',anchor=CENTER, width=160)
+                tree_emp.column('#5',anchor=CENTER, width=160)
+
+                
+                tree_emp.heading('#1', text='Post')
+                tree_emp.heading('#2', text='Name')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                tree_emp.heading('#3', text='Username')
+                tree_emp.heading('#4', text='Password')
+                tree_emp.heading('#5', text='Mobile No')
+
+                tree_emp.bind('<<TreeviewSelect>>')
+                tree_emp.place(x=70, y=100)
+
+                #contacts={}
+                for x in obj.get_data_emp():
+                       
+                        v=x['post']
+                        v1=x['Name']
+                        v2=x['Username']
+                        v3=x['Password']
+                        v4=x['Contact No']
+                       
+                        tree_emp.insert("",tk.END, value=[v,v1, v2, v3, v4])
+                        
+
+
+
+                
+
+
+
+
+                self.search_entry=Entry(emp_list, textvariable=search_var, width=30)
+                self.search_entry.place(x=150, y=630)
+
+                exit_button_addcustomer=Button(emp_list, text='Exit', bg='red', fg='Black', width=15,command=emp_list.destroy,font=('arail', 12, 'bold'))
+                exit_button_addcustomer.place(x=700, y=630)
+                
+                self.Save_button_addcustomer=Button(emp_list, text='Search', bg='Green', fg='White', width=7,font=('arail', 8, 'bold'))
+                self.Save_button_addcustomer.place(x=70, y=630)
+
+                emp_list.resizable(False, False)
+
+
+                emp_list.mainloop()
         
         def senddata(self):
                 
@@ -367,8 +438,8 @@ class Manager():
         tk.Button(manager_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold"), command=objAdd_customer.delete).place(x= 505, y=57)
         tk.Button(manager_window, height=2, text="New Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
         tk.Button(manager_window, height=2, text="Delete Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.delete_user_bank).place(x= 725, y=57)
-        tk.Button(manager_window, height=2, text="Updata Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
-        tk.Button(manager_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=57)
+        tk.Button(manager_window, height=2, text="Updata Customer", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
+        tk.Button(manager_window, height=2, text="Employee List", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.Employee_list).place(x= 945, y=57)
         tk.Button(manager_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=manager_window.destroy).place(x= 1165, y=57)
         tk.Button(manager_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1165, y=10)
         tk.Button(manager_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
@@ -488,13 +559,13 @@ class Employee():
         tk.Frame(emp_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(emp_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
         tk.Button(emp_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold"), command=objAdd_customer.delete).place(x= 505, y=57)
-        tk.Button(emp_window, height=2, text="New Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
-        tk.Button(emp_window, height=2, text="Delete Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.delete_user_bank).place(x= 725, y=57)
-        tk.Button(emp_window, height=2, text="Updata Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
+        tk.Button(emp_window, height=2, text="New Employee", bg="white", width=25, state=DISABLED,borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
+        tk.Button(emp_window, height=2, text="Delete Employee", bg="white", width=25,state=DISABLED, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.delete_user_bank).place(x= 725, y=57)
+        tk.Button(emp_window, height=2, text="Updata Employee", bg="white", width=25, state=DISABLED, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
         tk.Button(emp_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=57)
         tk.Button(emp_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=emp_window.destroy).place(x= 1165, y=57)
         tk.Button(emp_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1165, y=10)
-        tk.Button(emp_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
+        tk.Button(emp_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, state=DISABLED, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
 
         tk.Frame(emp_window, height=300, width=500, bg="White", borderwidth=3, relief='ridge').place(x=60,y=140)
         tk.Frame(emp_window, height=350, width=500, bg="White", borderwidth=3, relief='ridge').place(x=60,y=450)
@@ -556,7 +627,7 @@ class Employee():
 
         emp_window.mainloop()
     
-obj1=Manager()
-obj1.Gui()
+#obj1=Manager()
+#obj1.Gui()
 
   
