@@ -16,7 +16,7 @@ class Bank_data():
         'Aadhar No':del_aadharno
         }
         Collection.delete_one(dic_delete)
-        print(del_Accountno)
+        ##print(del_Accountno)
 
 
     def Add_account(self,Accountno,FirstName, LastName, FatherName, MotherName, ContactNo, AadharNo, PanCard, Dob,Address, City, Zip, Gender, AlternativeNo, Amount):
@@ -43,7 +43,7 @@ class Bank_data():
             
         }
         insert=Collection.insert_one(dic_add)
-        print(dic_add)
+        ##print(dic_add)
 
 
     def Add_Newuser(self, username, user_name, password, post, no_mobile):
@@ -68,7 +68,7 @@ class Bank_data():
             "Contact No":del_mobile_no
         }
         Collection.delete_one(dic)
-        print(dic)
+        #print(dic)
 
     def Deposit(self, accuum,amt):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
@@ -147,9 +147,36 @@ class Bank_data():
             "Last Name":0
             }
             )
-        print(dic)
+        #print(dic)
         return dic
 
 
 
-   
+    def account_no_declaration(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["account_no"]#collection name
+        one={
+            "Accnum":"4568"
+        }
+        #Collection.insert_one(one)
+        #return result
+
+        for dic in Collection.find({},{
+            "_id":0
+        }):
+         v=dic["Accnum"]
+         ##print(v)
+         return v
+    def alter_acc(self, num, transnum):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["account_no"]#collection name
+        myquery = { "Accnum":num }
+        newvalues = { "$set": { "Accnum": transnum } }
+
+        Collection.update_one(myquery, newvalues)
+
+
+#obj=Bank_data()
+#obj.account_no_declaration()

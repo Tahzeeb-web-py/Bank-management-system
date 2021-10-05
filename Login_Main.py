@@ -47,12 +47,13 @@ class Login_Form(Tk):
                                       "Username":self.user,
                                       "Password":self.get_pass},{"_id":0, "Name":0, "Contact No":0})
         x={'Username': self.user, 'Password': self.get_pass, 'post':self.get_post}
-        print(x)
-        print(result)
+        #print(x)
+        #print(result)
         if(x==result):
             if(self.get_post=='Manager'):
                 
                 obj1.Gui()
+                
                 
             elif(self.get_post=="Employee"):
                 obj2.Gui()

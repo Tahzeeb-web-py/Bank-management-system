@@ -160,16 +160,17 @@ class Account():
                 emp_list.mainloop()
         
         def senddata(self):
-                
+                accnuum=obj.account_no_declaration()
+                self.int_transfer=int(accnuum)
+                self.randam=randrange(1,78)
+                self.no=self.int_transfer+self.randam
                 self.gen1=self.gen.get()
-                self.no=randrange(999, 9999)
                 self.Accountno=str(self.no)
-
                 self.messtring=f"Account of this customer is {self.Accountno}."
-                
                 send_data=obj.Add_account(self.Accountno,self.FirstName.get(),self.LastName.get(),self.FatherName.get(), self.MotherName.get(), self.Contactnum.get(), self.Aadharnum.get(), self.Pan.get(),self.cal.get_date(), self.Address.get(),self.City.get(), self.Zipcode.get(), self.gen1, self.Alternativenum.get(),self.Depo_amount.get())
                 #print(send_data)
                 messagebox.showinfo('showinfo',self.messtring)
+                obj.alter_acc(accnuum, self.no)
 
         def reset(self):
                 self.FirstName.delete(0,END)
@@ -186,7 +187,7 @@ class Account():
                 self.Depo_amount.delete(0,END)
         def add(self):
                
-                #print(Accountno)
+                ##print(Accountno)
                 global addNew_customer
                 addNew_customer=tk.Tk()
                 addNew_customer.geometry("950x700+100+100")
@@ -290,7 +291,7 @@ class Account():
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------              
         def send_data_delete_customer(self):
                 obj.delete_account(self.Account_num.get(), self.Aadhar_num.get())
-                print(self.Account_num.get())
+                #print(self.Account_num.get())
         def delete(self):
                 dele_customer=tk.Tk()
                 dele_customer.geometry("950x530+100+100")
@@ -411,7 +412,7 @@ class Account():
                 self.delpassword.delete(0, END)
         def send_delete_data(self):
                 obj.delete_user(self.delusername.get(), self.delpassword.get(), self.Delmobile.get())
-                print(self.delusername.get(), self.delpassword.get(), self.Delmobile.get())
+                #print(self.delusername.get(), self.delpassword.get(), self.Delmobile.get())
         def delete_user_bank(self):
                 dele_user=tk.Tk()
                 dele_user.geometry("500x530+100+100")
@@ -705,7 +706,7 @@ class Employee():
 
         emp_window.mainloop()
     
-obj1=Manager()
-obj1.Gui()
+#obj1=Manager()
+#obj1.Gui()
 
   
