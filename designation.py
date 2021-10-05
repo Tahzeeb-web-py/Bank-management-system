@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-from tkinter import OptionMenu
+from tkinter import OptionMenu, messagebox
 from tkcalendar import Calendar
 from database import Bank_data
 import pymongo
@@ -16,6 +16,80 @@ obj=Bank_data()#database.py object Created..........
 
 #..................................Class Account....................................................................................................
 class Account():
+
+        def customer_list(self):
+                cust_list=tk.Tk()
+                cust_list.geometry('1400x750+10+10')
+                cust_list.title('Customer list')
+                cust_list['bg']='grey'
+                heading_frame=Frame( cust_list, width=1300, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
+                middle_frame=Frame(cust_list,width=1300, height=570, bg='White', relief=RIDGE).place(x=50, y=90)
+                futter_frame=Frame(cust_list,width=1300, height=70, bg='White', relief=RIDGE).place(x=50, y=670)
+
+                Label(cust_list, text='Customer List', font=('helvetica', 35, 'bold'),bg='White').place(x=550, y=15)
+
+
+                column_cust=('#1','#2','#3','#4','#5','#6','#7','#8','#9','#10')
+
+                tree_cust=ttk.Treeview(cust_list, columns=column_cust, show='headings', height=26)
+
+                #tree_emp.column('#0',anchor=CENTER, width=1)
+                tree_cust.column('#1',anchor=CENTER, width=100)
+                tree_cust.column('#2',anchor=CENTER, width=160)
+                tree_cust.column('#3',anchor=CENTER, width=160)
+                tree_cust.column('#4',anchor=CENTER, width=160)
+                tree_cust.column('#5',anchor=CENTER, width=120)
+                tree_cust.column('#6',anchor=CENTER, width=80)
+                tree_cust.column('#7',anchor=CENTER, width=160)
+                tree_cust.column('#8',anchor=CENTER, width=120)
+                tree_cust.column('#9',anchor=CENTER, width=100)
+                tree_cust.column('#10',anchor=CENTER, width=120)
+               
+                
+                
+                tree_cust.heading('#1', text='Account No')
+                tree_cust.heading('#2', text='Name')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                tree_cust.heading('#3', text="Father's Name")
+                tree_cust.heading('#4', text="Mother's Name")
+                tree_cust.heading('#5', text='Contact No')
+                tree_cust.heading('#6', text='sex')
+                tree_cust.heading('#7', text='Aadhar No')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                tree_cust.heading('#8', text='Pan No')
+                tree_cust.heading('#9', text='Date of Birth')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                tree_cust.heading('#10', text='Account Balance')
+               
+
+                tree_cust.bind('<<TreeviewSelect>>')
+                tree_cust.place(x=60, y=100)
+                vsb = ttk.Scrollbar(cust_list, orient="vertical", command=tree_cust.yview)
+                vsb.place(x=1250, y=70)
+                tree_cust.configure(yscrollcommand=vsb.set)
+
+                for x in obj.get_data_customer():
+                        f1=x["Account No"]
+                        f2=x["First Name"]
+                        f3=x["Father's Name"]
+                        f4=x["Mother's Name"]
+                        f5=x["Contact No"]
+                        f6=x["Sex"]
+                        f7=x["Aadhar No"]
+                        f8=x["Pan No"]
+                        f9=x["Date of Birth"]
+                        f10=x["Amount"]
+
+                        tree_cust.insert("",tk.END, value=[f1,f2,f3,f4,f5,f6,f7,f8,f9,f10])
+                
+
+
+                exit_button_cust_list=Button(cust_list, text='Exit', bg='red', fg='Black', width=15,command=cust_list.destroy,font=('arail', 12, 'bold'))
+                exit_button_cust_list.place(x=1150, y=690)
+                cust_list.mainloop()
+
+
+
+
+
+
         def Employee_list(self):
                 obj.get_data_emp()
                 emp_list=tk.Tk()
@@ -90,9 +164,13 @@ class Account():
                 self.gen1=self.gen.get()
                 self.no=randrange(999, 9999)
                 self.Accountno=str(self.no)
+
+                self.messtring=f"Account of this customer is {self.Accountno}."
                 
                 send_data=obj.Add_account(self.Accountno,self.FirstName.get(),self.LastName.get(),self.FatherName.get(), self.MotherName.get(), self.Contactnum.get(), self.Aadharnum.get(), self.Pan.get(),self.cal.get_date(), self.Address.get(),self.City.get(), self.Zipcode.get(), self.gen1, self.Alternativenum.get(),self.Depo_amount.get())
                 #print(send_data)
+                messagebox.showinfo('showinfo',self.messtring)
+
         def reset(self):
                 self.FirstName.delete(0,END)
                 self.LastName.delete(0,END)
@@ -359,7 +437,7 @@ class Account():
                 exit_button_delecustomer.place(x=50, y=470)
                 reset_button_delecustomer=Button(dele_user, text='Reset', bg='yellow', fg='Black',width=15, font=('arail', 12, 'bold'),command=self.reset_delete_user_bank)
                 reset_button_delecustomer.place(x=150, y=350)
-                Delete_button_delecustomer=Button(dele_user, text='Delete Employee', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'), command=self.send_delete_data)
+                Delete_button_delecustomer=Button(dele_user, text='Delete Employee', bg='Green', fg='White', width=15,font=('arail', 12, 'bold'), command=lambda:[self.send_delete_data(), dele_user.destroy()])
                 Delete_button_delecustomer.place(x=280, y=470)
                 dele_user.resizable(False, False)
                 dele_user.mainloop()
@@ -441,7 +519,7 @@ class Manager():
         tk.Button(manager_window, height=2, text="Updata Customer", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
         tk.Button(manager_window, height=2, text="Employee List", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.Employee_list).place(x= 945, y=57)
         tk.Button(manager_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=manager_window.destroy).place(x= 1165, y=57)
-        tk.Button(manager_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1165, y=10)
+        tk.Button(manager_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=objAdd_customer.customer_list).place(x= 1165, y=10)
         tk.Button(manager_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
 
         tk.Frame(manager_window, height=300, width=500, bg="White", borderwidth=3, relief='ridge').place(x=60,y=140)
@@ -564,7 +642,7 @@ class Employee():
         tk.Button(emp_window, height=2, text="Updata Employee", bg="white", width=25, state=DISABLED, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
         tk.Button(emp_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=57)
         tk.Button(emp_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=emp_window.destroy).place(x= 1165, y=57)
-        tk.Button(emp_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1165, y=10)
+        tk.Button(emp_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=objAdd_customer.customer_list).place(x= 1165, y=10)
         tk.Button(emp_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, state=DISABLED, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
 
         tk.Frame(emp_window, height=300, width=500, bg="White", borderwidth=3, relief='ridge').place(x=60,y=140)
@@ -627,7 +705,7 @@ class Employee():
 
         emp_window.mainloop()
     
-#obj1=Manager()
-#obj1.Gui()
+obj1=Manager()
+obj1.Gui()
 
   

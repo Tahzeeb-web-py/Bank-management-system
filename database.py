@@ -130,3 +130,26 @@ class Bank_data():
             )
         #print(dic)
         return dic
+    
+
+    def get_data_customer(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Accounts"]#collection name
+        dic=Collection.find({},
+            {
+            "_id":0,
+            "Alternative No":0,
+            "Address":0,
+            "Address code":0,
+            "City":0,
+            
+            "Last Name":0
+            }
+            )
+        print(dic)
+        return dic
+
+
+
+   
