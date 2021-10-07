@@ -10,6 +10,7 @@ import random
 from random import randrange
 
 
+
 obj=Bank_data()#database.py object Created..........
 
 
@@ -453,8 +454,8 @@ objAdd_customer= Account()
 
 class Manager():
 
-    def reset_deposit(self):
 
+    def reset_deposit(self):
         self.acc_name.delete(0, END)
         self.amonut.delete(0, END)
         self.acc_no.delete(0, END)
@@ -511,6 +512,7 @@ class Manager():
 
         tk.Frame(manager_window, width=1450, height= 100, bg="cyan", borderwidth=3).place(x=45, y=8)
         tk.Label(manager_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=225, y=9)
+        tk.Label(manager_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
         #tk.Frame(manager_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(manager_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(manager_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
@@ -549,7 +551,7 @@ class Manager():
         self.reset=tk.Button(manager_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_deposit).place(x=100,y=390)
         self.reset=tk.Button(manager_window, text='Deposit', width=20, bg='Green', fg='white',font=('arail', 10,'bold')).place(x=300,y=390)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        lbs=tk.Label(manager_window, text='Amount Withdrawal', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=650,y=150)
+        lbs=tk.Label(manager_window, text='Amount Withdrawal', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=750,y=150)
         lbs=tk.Label(manager_window, text="Account No:", bg='white', font=('arail', 12, 'bold')).place(x=600, y=210)
         self.acc_no_withdrawal=Entry(manager_window, textvariable=self.Account_No_withdrawal, width=40)
         self.acc_no_withdrawal.place(x=750,y=210)
@@ -634,6 +636,7 @@ class Employee():
 
         tk.Frame(emp_window, width=1450, height= 100, bg="cyan", borderwidth=3).place(x=45, y=8)
         tk.Label(emp_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=225, y=9)
+        tk.Label(manager_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
         #tk.Frame(emp_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(emp_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(emp_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
