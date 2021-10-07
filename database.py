@@ -156,11 +156,6 @@ class Bank_data():
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
         Collection = db["account_no"]#collection name
-        one={
-            "Accnum":"4568"
-        }
-        #Collection.insert_one(one)
-        #return result
 
         for dic in Collection.find({},{
             "_id":0
@@ -178,5 +173,42 @@ class Bank_data():
         Collection.update_one(myquery, newvalues)
 
 
-#obj=Bank_data()
-#obj.account_no_declaration()
+    def deposit_amt(self, accno, amount1):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Accounts"]#collection name
+        
+        search={
+            "Account No":accno
+        }
+        for found in Collection.find(search,{"_id":0, "Amount":1}):
+            a=found['Amount']
+            
+            b=int(a)+int(amount1)
+            
+        result = Collection.update_one({"Account No":accno},{"$set":{"Amount":b}}
+        )
+
+    def withdrawal_amt(self, accno, amount1):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Accounts"]#collection name
+        search={
+        "Account No":accno
+        }
+        for found in Collection.find(search,{"_id":0, "Amount":1}):
+            a=found['Amount']
+            
+            if int(a)>int(amount1):
+                b=int(a)-int(amount1)
+                result = Collection.update_one({"Account No":accno},{"$set":{"Amount":b}})
+                return 1
+            else:
+                return 0
+
+
+         
+
+
+
+

@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter
 from tkinter import ttk
 from tkinter import *
 from tkinter import OptionMenu, messagebox
@@ -17,6 +18,8 @@ obj=Bank_data()#database.py object Created..........
 
 #..................................Class Account....................................................................................................
 class Account():
+        
+                
 
         def customer_list(self):
                 cust_list=tk.Tk()
@@ -471,7 +474,21 @@ class Manager():
         self.amonut_transfer.delete(0, END)
         return
 
+    def send_deposit(self):
+        self.send=obj.deposit_amt(self.acc_no.get(), self.amonut.get())
+        
+        #print(self.acc_no.get())
+    def send_withdrawal_amt(self):
+            self.send=obj.withdrawal_amt(self.acc_no_withdrawal.get(), self.amonut_withdrwal.get())
+            if self.send==1:
+                    self.reset_withdrawal()
+            else:
+                    self.messege='Insufficient Amount in Account'
+                    messagebox.showinfo('showinfo',self.messege)
+                    self.reset_withdrawal()
+                    
 
+        
 
 
     def Gui(self):
@@ -487,7 +504,7 @@ class Manager():
 
 #datatype declaration for deposit part---------------------------------------------------
         self.depositmoney=StringVar()
-        self.accnum=IntVar()
+        self.accnum=StringVar()
         self.accname=StringVar()
         self.acc_amount=IntVar()
 #End.......................................................................................
@@ -549,7 +566,7 @@ class Manager():
         self.degisnation_radio1=Radiobutton(manager_window, text='DD', variable=self.depositmoney, value="DD",font=('arial', 12, 'bold'), bg='white')
         self.degisnation_radio1.place(x=390, y=340)
         self.reset=tk.Button(manager_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_deposit).place(x=100,y=390)
-        self.reset=tk.Button(manager_window, text='Deposit', width=20, bg='Green', fg='white',font=('arail', 10,'bold')).place(x=300,y=390)
+        self.reset=tk.Button(manager_window, text='Deposit', width=20, bg='Green', fg='white',font=('arail', 10,'bold'), command=self.send_deposit).place(x=300,y=390)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         lbs=tk.Label(manager_window, text='Amount Withdrawal', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=750,y=150)
         lbs=tk.Label(manager_window, text="Account No:", bg='white', font=('arail', 12, 'bold')).place(x=600, y=210)
@@ -568,7 +585,7 @@ class Manager():
         self.With_type_radio1.place(x=900, y=340)
         
         self.reset=tk.Button(manager_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_withdrawal).place(x=650,y=390)
-        self.reset=tk.Button(manager_window, text='Withdraw', width=20, bg='Green', fg='white',font=('arail', 10,'bold')).place(x=850,y=390)
+        self.reset=tk.Button(manager_window, text='Withdraw', width=20, bg='Green', fg='white',font=('arail', 10,'bold'),command=self.send_withdrawal_amt).place(x=850,y=390)
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         lbs=tk.Label(manager_window, text='Transfer Amount', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=220,y=460)
         lbs=tk.Label(manager_window, text="Account No(Tranfer From):", bg='white', font=('arail', 12, 'bold')).place(x=70, y=520)
@@ -603,6 +620,11 @@ class Employee():
         self.acc_no_deposit_transfer.delete(0, END)
         self.amonut_transfer.delete(0, END)
         return
+
+    def send_deposit(self):
+        self.send=obj.deposit_amt(self.acc_no.get(), self.amonut.get())
+
+
     def Gui(self):
 
         emp_window=tk.Tk()
@@ -673,7 +695,7 @@ class Employee():
         self.degisnation_radio1=Radiobutton(emp_window, text='DD', variable=self.depositmoney, value="DD",font=('arial', 12, 'bold'), bg='white')
         self.degisnation_radio1.place(x=390, y=340)
         self.reset=tk.Button(emp_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_deposit).place(x=100,y=390)
-        self.reset=tk.Button(emp_window, text='Deposit', width=20, bg='Green', fg='white',font=('arail', 10,'bold')).place(x=300,y=390)
+        self.reset=tk.Button(emp_window, text='Deposit', width=20, bg='Green', fg='white',font=('arail', 10,'bold'), command=self.send_deposit).place(x=300,y=390)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         lbs=tk.Label(emp_window, text='Amount Withdrawal', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=650,y=150)
         lbs=tk.Label(emp_window, text="Account No:", bg='white', font=('arail', 12, 'bold')).place(x=600, y=210)
@@ -709,7 +731,7 @@ class Employee():
 
         emp_window.mainloop()
     
-#obj1=Manager()
-#obj1.Gui()
+obj1=Manager()
+obj1.Gui()
 
   
