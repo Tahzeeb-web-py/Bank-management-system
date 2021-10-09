@@ -9,6 +9,7 @@ import pymongo
 from pymongo import MongoClient
 import random
 from random import randrange
+from tkinter.scrolledtext import ScrolledText
 
 
 
@@ -18,6 +19,43 @@ obj=Bank_data()#database.py object Created..........
 
 #..................................Class Account....................................................................................................
 class Account():
+
+        
+        def notice(self):
+                self.npew=StringVar()
+                self.notice_page=tk.Tk()
+                self.notice_page.geometry('1400x750+10+10')
+                self.notice_page.title('Notice')
+                self.notice_page['bg']='cyan'
+                heading_frame=Frame(self.notice_page, width=1300, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
+                middle_frame=Frame( self.notice_page,width=1300, height=570, bg='White', relief=RIDGE).place(x=50, y=90)
+                futter_frame=Frame( self.notice_page,width=1300, height=70, bg='White', relief=RIDGE).place(x=50, y=670)
+                Label(self.notice_page, text='Notice', font=('helvetica', 35, 'bold'),bg='White').place(x=550, y=15)
+                column_notice=('#1','#2')
+                tree_note=ttk.Treeview(self.notice_page, columns=column_notice, show='headings', height=26)
+                tree_note.column('#1',anchor=CENTER, width=50)
+                tree_note.column('#2',anchor=CENTER, width=350)
+                tree_note.heading('#1', text='Id no')
+                tree_note.heading('#2', text='Notice')
+                tree_note.bind('<<TreeviewSelect>>')
+                tree_note.place(x=910, y=100)
+                vsb = ttk.Scrollbar(self.notice_page, orient="vertical", command=tree_note.yview)
+                vsb.place(x=1320, y=90)
+                tree_note.configure(yscrollcommand=vsb.set)
+
+                exit_button_cust_list=Button(self.notice_page, text='Exit', bg='red', fg='Black', width=15,command=self.notice_page.destroy,font=('arail', 12, 'bold'))
+                exit_button_cust_list.place(x=1150, y=690)
+                refresh_button=Button(self.notice_page, text='Refresh', bg='yellow', fg='Black', width=15,font=('arail', 12, 'bold'))
+                refresh_button.place(x=910, y=690)
+                save_button=Button(self.notice_page, text='Save', bg='Green', fg='white', width=15,font=('arail', 12, 'bold'))
+                save_button.place(x=70, y=690)
+                delete_button=Button(self.notice_page, text='Delete', bg='red', fg='White', width=15,font=('arail', 12, 'bold'))
+                delete_button.place(x=350, y=690)
+
+
+
+                self.notice_page.mainloop()
+
         
                 
 
@@ -456,6 +494,7 @@ objAdd_customer= Account()
 
 
 class Manager():
+    
 
 
     def reset_deposit(self):
@@ -486,17 +525,34 @@ class Manager():
                     self.messege='Insufficient Amount in Account'
                     messagebox.showinfo('showinfo',self.messege)
                     self.reset_withdrawal()
-                    
+
+    def transfer_amt(self):
+        obj.transfer_db(self.acc_no_withdrawal_tranfer.get(),self.acc_no_deposit_transfer.get(),self.amonut_transfer.get())
+
+    def check_balance(self):
+            balance=obj.balance_valid(self.balance_account_no.get())
+            #print(balance)
+            #return balance
+            ff=f'Total Amount in the bank account No:   {self.balance_account_no.get()} is:     {balance}'
+            self.messege='Balance in Account'
+            messagebox.showinfo('showinfo',ff)
+
+    
+
+
+
+    
 
         
 
 
     def Gui(self):
-
+        self.M_name=obj.manager_info()
         manager_window=tk.Tk()
         manager_window.geometry("1920x1080")
         manager_window.title("Manager Window")
         manager_window['bg']='peach puff'
+        
 
 
 
@@ -523,6 +579,10 @@ class Manager():
         self.Account_amount_transfer=IntVar()
 #End.........................................................................................
 
+#datatype declaration for account balance part..............................................
+        self.account_balance=IntVar()
+        self.balance=IntVar()
+
 
 
 
@@ -530,6 +590,7 @@ class Manager():
         tk.Frame(manager_window, width=1450, height= 100, bg="cyan", borderwidth=3).place(x=45, y=8)
         tk.Label(manager_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=225, y=9)
         tk.Label(manager_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
+        tk.Label(manager_window, text=self.M_name, bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=250, y=75)
         #tk.Frame(manager_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(manager_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(manager_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
@@ -540,7 +601,7 @@ class Manager():
         tk.Button(manager_window, height=2, text="Employee List", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.Employee_list).place(x= 945, y=57)
         tk.Button(manager_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=manager_window.destroy).place(x= 1165, y=57)
         tk.Button(manager_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=objAdd_customer.customer_list).place(x= 1165, y=10)
-        tk.Button(manager_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
+        tk.Button(manager_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=objAdd_customer.notice).place(x= 1380, y=10)
 
         tk.Frame(manager_window, height=300, width=500, bg="White", borderwidth=3, relief='ridge').place(x=60,y=140)
         tk.Frame(manager_window, height=350, width=500, bg="White", borderwidth=3, relief='ridge').place(x=60,y=450)
@@ -598,8 +659,18 @@ class Manager():
         self.amonut_transfer=Entry(manager_window, textvariable=self.Account_amount_transfer, width=40)
         self.amonut_transfer.place(x=290,y=620)
         self.reset=tk.Button(manager_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_transfer).place(x=100,y=680)
-        self.reset=tk.Button(manager_window, text='Transfer', width=20, bg='Green', fg='white',font=('arail', 10,'bold')).place(x=300,y=680)
+        self.reset=tk.Button(manager_window, text='Transfer', width=20, bg='Green', fg='white',font=('arail', 10,'bold'),command=self.transfer_amt).place(x=300,y=680)
+#.........................................................................................................................................................................
+        lbs=tk.Label(manager_window, text='Account Balance', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=750,y=460)
+        lbs=tk.Label(manager_window, text="Account No:", bg='white', font=('arail', 15, 'bold')).place(x=600, y=520)
+        self.balance_account_no=Entry(manager_window, textvariable=self.account_balance,font=('arial', 15, 'bold'),width=20)
+        self.balance_account_no.place(x=750,y=520)
 
+        #bal=self.check_balance()
+        
+        #self.reset=tk.Button(manager_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold')).place(x=100,y=680)
+        self.reset=tk.Button(manager_window, text='Check', width=20, bg='Green', fg='white',font=('arail', 10,'bold'),command=self.check_balance).place(x=750,y=680)
+        
         manager_window.mainloop()
 
 
@@ -623,7 +694,16 @@ class Employee():
 
     def send_deposit(self):
         self.send=obj.deposit_amt(self.acc_no.get(), self.amonut.get())
-
+    def send_withdrawal_amt(self):
+            self.send=obj.withdrawal_amt(self.acc_no_withdrawal.get(), self.amonut_withdrwal.get())
+            if self.send==1:
+                    self.reset_withdrawal()
+            else:
+                    self.messege='Insufficient Amount in Account'
+                    messagebox.showinfo('showinfo',self.messege)
+                    self.reset_withdrawal()
+    def transfer_amt(self):
+                obj.transfer_db(self.acc_no_withdrawal_tranfer.get(),self.acc_no_deposit_transfer.get(),self.amonut_transfer.get())
 
     def Gui(self):
 
@@ -658,7 +738,7 @@ class Employee():
 
         tk.Frame(emp_window, width=1450, height= 100, bg="cyan", borderwidth=3).place(x=45, y=8)
         tk.Label(emp_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=225, y=9)
-        tk.Label(manager_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
+        tk.Label(emp_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
         #tk.Frame(emp_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(emp_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(emp_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
@@ -714,7 +794,7 @@ class Employee():
         self.With_type_radio1.place(x=900, y=340)
         
         self.reset=tk.Button(emp_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_withdrawal).place(x=650,y=390)
-        self.reset=tk.Button(emp_window, text='Withdraw', width=20, bg='Green', fg='white',font=('arail', 10,'bold')).place(x=850,y=390)
+        self.reset=tk.Button(emp_window, text='Withdraw', width=20, bg='Green', fg='white',font=('arail', 10,'bold'),command=self.send_withdrawal_amt).place(x=850,y=390)
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         lbs=tk.Label(emp_window, text='Transfer Amount', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=220,y=460)
         lbs=tk.Label(emp_window, text="Account No(Tranfer From):", bg='white', font=('arail', 12, 'bold')).place(x=70, y=520)
@@ -727,7 +807,7 @@ class Employee():
         self.amonut_transfer=Entry(emp_window, textvariable=self.Account_amount_transfer, width=40)
         self.amonut_transfer.place(x=290,y=620)
         self.reset=tk.Button(emp_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_transfer).place(x=100,y=680)
-        self.reset=tk.Button(emp_window, text='Transfer', width=20, bg='Green', fg='white',font=('arail', 10,'bold')).place(x=300,y=680)
+        self.reset=tk.Button(emp_window, text='Transfer', width=20, bg='Green', fg='white',font=('arail', 10,'bold'),command=self.transfer_amt).place(x=300,y=680)
 
         emp_window.mainloop()
     

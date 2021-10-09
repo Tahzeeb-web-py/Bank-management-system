@@ -205,9 +205,51 @@ class Bank_data():
                 return 1
             else:
                 return 0
+    def manager_info(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Login_post"]#collection name
+        myq={'post':'Manager'}
+        for dic in Collection.find(myq):
+            name=dic['Name']
+            return name
+    def transfer_db(self,transferacc,depoacc, amt):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Accounts"]
+        trans={'Account No':transferacc}
+        for dic in Collection.find(trans):
+            tra=dic['Amount']
+            print(tra)
+        depo={'Account No':depoacc}
+        for pic in Collection.find(depo):
+            dep=pic['Amount']
+            print(dep)
+        if int(transferacc)>int(amt):
+                b=int(tra)-int(amt)
+                result = Collection.update_one({"Account No":transferacc},{"$set":{"Amount":b}})
+                return 1
+        else:
+            print('sorry')
+            
+        b=int(dep)+int(amt)
+        result = Collection.update_one({"Account No":depoacc},{"$set":{"Amount":b}})
+    def balance_valid(self, accnumber):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["Accounts"]
+        myquery={
+            'Account No':accnumber
+        }
+        for x in Collection.find(myquery):
+            #print(x['Amount'])
+            return x['Amount']
 
 
-         
+
+
+#obj=Bank_data()
+#obj.manager_info()         
 
 
 

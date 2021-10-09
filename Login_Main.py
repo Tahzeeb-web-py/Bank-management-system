@@ -109,7 +109,7 @@ class Login_Form(Tk):
         self.entry_password=Entry(login_form_frame, textvariable=password, bg="grey",font=2, width=25)
         self.entry_password.place(x=900, y=475)
 
-        login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold'), command=lambda:[self.fetch_all(),logwin.destroy()]).place(x=900, y=650)
+        login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold'), command=lambda:[logwin.destroy,self.fetch_all()]).place(x=900, y=650)
         reset_button=Button(login_form_frame, text="Reset", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=self.reset).place(x=700, y=650)
         exit_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=logwin.destroy)
         exit_button.place(x=1100, y=650)
