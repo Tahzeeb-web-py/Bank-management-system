@@ -546,14 +546,90 @@ class Account():
                 Delete_button_delecustomer.place(x=280, y=470)
                 dele_user.resizable(False, False)
                 dele_user.mainloop()
+        expression = ""
+        def press(self,num):
+	
+	        global expression
+	        self.expression = self.expression + str(num)
+	        self.equation.set(self.expression)
 
+        def equalpress(self):
+	
+	        try:
+
+		        global expression
+		        total = str(eval(expression))
+		        self.equation.set(total)
+		        self.expression = ""
+
+	
+	        except:
+
+		        self.equation.set(" error ")
+		        self.expression = ""
+
+        def clear(self):
+	        self.expression_field.delete(0, END)
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        def Calculator_bank(self):
+                bank_cal=tk.Tk()
+                bank_cal.geometry("950x530+100+100")
+                bank_cal.title("Calcultor Window")
+                bank_cal['bg']='grey'
+                heading_frame=Frame(bank_cal, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
+                middle_frame=Frame( bank_cal, width=850, height=350, bg='yellow', relief=RIDGE).place(x=50, y=90)
+                futter_frame=Frame( bank_cal, width=850, height=70, bg='White', relief=RIDGE).place(x=50, y=450)
+                label_firstname=Label(bank_cal, text='Calculate',bg="White",font=('arail', 20, 'bold')).place(x=400 , y=30)
+                self.equation=StringVar()
+                self.expression_field = Entry(bank_cal, width=35,font=('arail', 15, 'bold') ,textvariable=self.equation)
+                self.expression_field.place(x=75, y=120)
+                button1 = Button(bank_cal, text=' 1 ', fg='black', bg='White',command=lambda: self.press(1), height=2, width=10)
+                button1.place(x=75, y=250)
+                button2 = Button(bank_cal, text=' 2 ', fg='black', bg='White',command=lambda: self.press(2), height=2, width=10)
+                button2.place(x=75, y=300)
+                button3 = Button(bank_cal, text=' 3 ', fg='black', bg='white',command=lambda: self.press(3), height=2, width=10)
+                button3.place(x=75, y=350)
+                button4 = Button(bank_cal, text=' 4 ', fg='black', bg='white',command=lambda: self.press(4), height=2, width=10)
+                button4.place(x=170, y=250)
+                button5=Button(bank_cal, text=' 5 ', fg='black', bg='white',command=lambda: self.press(5), height=2, width=10)
+                button5.place(x=170, y=300)
+                button6 = Button(bank_cal, text=' 6 ', fg='black', bg='white',command=lambda: self.press(6), height=2, width=10)
+                button6.place(x=170, y=350)
+                button7 = Button(bank_cal, text=' 7 ', fg='black', bg='white',command=lambda: self.press(7), height=2, width=10)
+                button7.place(x=265, y=250)
+                button8 = Button(bank_cal, text=' 8 ', fg='black', bg='white',command=lambda: self.press(8), height=2, width=10)
+                button8.place(x=265, y=300)
+                button9 = Button(bank_cal, text=' 9 ', fg='black', bg='white',command=lambda: self.press(9), height=2, width=10)
+                button9.place(x=265, y=350)
+                button0 = Button(bank_cal, text=' 0 ', fg='black', bg='white',command=lambda: self.press(0), height=2, width=10)
+                button0.place(x=360, y=250)
+                plus = Button(bank_cal, text=' + ', fg='black', bg='white',command=lambda: self.press("+"), height=2, width=10)
+                plus.place(x=360, y=300)
+                minus = Button(bank_cal, text=' - ', fg='black', bg='white',command=lambda: self.press("-"), height=2, width=10)
+                minus.place(x=360, y=350)
+                multiply = Button(bank_cal, text=' * ', fg='black', bg='white',command=lambda:self.press("*"), height=2, width=10)
+                multiply.place(x=455, y=250)
+                divide = Button(bank_cal, text=' / ', fg='black', bg='white',command=lambda: self.press("/"), height=2, width=10)
+                divide.place(x=455, y=300)
+                equal = Button(bank_cal, text=' = ', fg='black', bg='white',command= self.equalpress(), height=2, width=10)
+                equal.place(x=455, y=350)
+                Decimal= Button(bank_cal, text='.', fg='black', bg='white',command=lambda: self.press('.'), height=2, width=10)
+                Decimal.place(x=555, y=350)
+
+
+                exit_button_cal=Button(bank_cal, text='Exit', bg='red', fg='Black', width=15,command=bank_cal.destroy,font=('arail', 12, 'bold'))
+                exit_button_cal.place(x=380, y=470)
+                reset_button_cal=Button(bank_cal, text='Reset', bg='yellow', fg='Black',width=15,command=self.clear(), font=('arail', 12, 'bold'))
+                reset_button_cal.place(x=100, y=470)
+                
+                bank_cal.resizable(False, False)
+
+
+                bank_cal.mainloop()
+
+
+
 objAdd_customer= Account()
-
-
-
-
-
 
 class Manager():
     
@@ -660,7 +736,7 @@ class Manager():
         tk.Button(manager_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold"), command=objAdd_customer.delete).place(x= 505, y=57)
         tk.Button(manager_window, height=2, text="New Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
         tk.Button(manager_window, height=2, text="Delete Employee", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.delete_user_bank).place(x= 725, y=57)
-        tk.Button(manager_window, height=2, text="Updata Customer", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
+        tk.Button(manager_window, height=2, text="Calculator", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.Calculator_bank).place(x= 945, y=10)
         tk.Button(manager_window, height=2, text="Employee List", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.Employee_list).place(x= 945, y=57)
         tk.Button(manager_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=manager_window.destroy).place(x= 1165, y=57)
         tk.Button(manager_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=objAdd_customer.customer_list).place(x= 1165, y=10)
@@ -825,8 +901,8 @@ class Employee():
         tk.Button(emp_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold"), command=objAdd_customer.delete).place(x= 505, y=57)
         tk.Button(emp_window, height=2, text="New Employee", bg="white", width=25, state=DISABLED,borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
         tk.Button(emp_window, height=2, text="Delete Employee", bg="white", width=25,state=DISABLED, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.delete_user_bank).place(x= 725, y=57)
-        tk.Button(emp_window, height=2, text="Updata Employee", bg="white", width=25, state=DISABLED, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
-        tk.Button(emp_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=57)
+        tk.Button(emp_window, height=2, text="Calculator", bg="white", width=25,  borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
+        tk.Button(emp_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Calculator_bank).place(x= 945, y=57)
         tk.Button(emp_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=emp_window.destroy).place(x= 1165, y=57)
         tk.Button(emp_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=objAdd_customer.customer_list).place(x= 1165, y=10)
         tk.Button(emp_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, state=DISABLED, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
@@ -901,7 +977,7 @@ class Employee():
 
         emp_window.mainloop()
     
-obj1=Manager()
-obj1.Gui()
+#obj1=Manager()
+#obj1.Gui()
 
   
