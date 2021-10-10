@@ -20,42 +20,104 @@ obj=Bank_data()#database.py object Created..........
 #..................................Class Account....................................................................................................
 class Account():
 
-        
+
+
+        def reset_note(self):
+                self.notice_entry.delete(0, END)
+        def delete_treeview(self):
+                curItem = self.tree_note.focus()
+                temp=self.tree_note.item(curItem, 'values')
+                #print(temp[0])
+                dd=int(temp[0])
+                obj.delete_notice(dd)
+                #print(type(dd))
+                
+
+
+                selected_item = self.tree_note.selection()[0]
+                self.tree_note.delete(selected_item)
+                
+        def send_data_to(self):
+                id=randrange(1,99999)
+                v=obj.add_notice(id, self.notice_entry.get())
+
+  
         def notice(self):
                 self.npew=StringVar()
                 self.notice_page=tk.Tk()
                 self.notice_page.geometry('1400x750+10+10')
                 self.notice_page.title('Notice')
                 self.notice_page['bg']='cyan'
+                note=StringVar()
                 heading_frame=Frame(self.notice_page, width=1300, height=70, bg='White', relief=RIDGE).place(x=50, y=10)
-                middle_frame=Frame( self.notice_page,width=1300, height=570, bg='White', relief=RIDGE).place(x=50, y=90)
+                middle_frame=Frame( self.notice_page,width=1300, height=570, bg='peachpuff4', relief=RIDGE).place(x=50, y=90)
                 futter_frame=Frame( self.notice_page,width=1300, height=70, bg='White', relief=RIDGE).place(x=50, y=670)
+                self.entry_frame=Frame(self.notice_page, width=800, height=550, bg='white', relief=GROOVE).place(x=78, y=100)
+                self.entry_frame=Frame(self.notice_page, width=500, height=40, bg='BLACK', relief=RIDGE).place(x=300, y=150)
+                lbs=Label(self.notice_page, text='Notice:',font=('arail', 20, 'bold'), bg='white').place(x=110, y=150)
+                self.notice_entry=Entry(self.notice_page, textvariable=note,font=35, width=43)
+                self.notice_entry.place(x=310, y=155)
+                entry_note = ttk.Scrollbar(self.notice_page, orient="horizontal", command=self.notice_entry.xview)
+                entry_note.place(x=300, y=200)
+                self.notice_entry.configure(xscrollcommand=entry_note.set)
+                self.reset_button=Button(self.notice_page, text='Clear', bg='Red', fg='white', width=15,font=('arail', 8, 'bold'), command=self.reset_note)
+                self.reset_button.place(x=688, y=200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 Label(self.notice_page, text='Notice', font=('helvetica', 35, 'bold'),bg='White').place(x=550, y=15)
                 column_notice=('#1','#2')
-                tree_note=ttk.Treeview(self.notice_page, columns=column_notice, show='headings', height=26)
-                tree_note.column('#1',anchor=CENTER, width=50)
-                tree_note.column('#2',anchor=CENTER, width=350)
-                tree_note.heading('#1', text='Id no')
-                tree_note.heading('#2', text='Notice')
-                tree_note.bind('<<TreeviewSelect>>')
-                tree_note.place(x=910, y=100)
-                vsb = ttk.Scrollbar(self.notice_page, orient="vertical", command=tree_note.yview)
-                vsb.place(x=1320, y=90)
-                tree_note.configure(yscrollcommand=vsb.set)
+                self.tree_note=ttk.Treeview(self.notice_page, columns=column_notice, show='headings', height=26)
+                self.tree_note.column('#1',anchor=CENTER, width=50)
+                self.tree_note.column('#2',anchor=CENTER, width=350)
+                self.tree_note.heading('#1', text='Id no')
+                self.tree_note.heading('#2', text='Notice')
+                self.tree_note.bind('<<TreeviewSelect>>')
+                self.tree_note.place(x=910, y=100)
 
+                for x in obj.fetch_notice():
+                        print(x)
+                        z=x['no']
+                        z1=x['notices']
+                       
+
+                        self.tree_note.insert("",tk.END, value=[z, z1])
+                vsb = ttk.Scrollbar(self.notice_page, orient="vertical", command=self.tree_note.yview)
+                vsb.place(x=1320, y=90)
+                self.tree_note.configure(yscrollcommand=vsb.set)
+                
                 exit_button_cust_list=Button(self.notice_page, text='Exit', bg='red', fg='Black', width=15,command=self.notice_page.destroy,font=('arail', 12, 'bold'))
                 exit_button_cust_list.place(x=1150, y=690)
                 refresh_button=Button(self.notice_page, text='Refresh', bg='yellow', fg='Black', width=15,font=('arail', 12, 'bold'))
                 refresh_button.place(x=910, y=690)
-                save_button=Button(self.notice_page, text='Save', bg='Green', fg='white', width=15,font=('arail', 12, 'bold'))
-                save_button.place(x=70, y=690)
-                delete_button=Button(self.notice_page, text='Delete', bg='red', fg='White', width=15,font=('arail', 12, 'bold'))
+                save_button=Button(self.notice_page, text='Save', bg='Green', fg='white', width=15,font=('arail', 12, 'bold'),command=self.send_data_to)
+                save_button.place(x=78, y=690)
+                delete_button=Button(self.notice_page, text='Delete', bg='red', fg='White', width=15,font=('arail', 12, 'bold'),command=self.delete_treeview)
                 delete_button.place(x=350, y=690)
 
 
 
                 self.notice_page.mainloop()
-
+        
         
                 
 
@@ -515,6 +577,7 @@ class Manager():
 
     def send_deposit(self):
         self.send=obj.deposit_amt(self.acc_no.get(), self.amonut.get())
+        self.reset_deposit()
         
         #print(self.acc_no.get())
     def send_withdrawal_amt(self):
@@ -528,7 +591,7 @@ class Manager():
 
     def transfer_amt(self):
         obj.transfer_db(self.acc_no_withdrawal_tranfer.get(),self.acc_no_deposit_transfer.get(),self.amonut_transfer.get())
-
+        self.reset_transfer()
     def check_balance(self):
             balance=obj.balance_valid(self.balance_account_no.get())
             #print(balance)
@@ -694,6 +757,7 @@ class Employee():
 
     def send_deposit(self):
         self.send=obj.deposit_amt(self.acc_no.get(), self.amonut.get())
+        self.reset_deposit()
     def send_withdrawal_amt(self):
             self.send=obj.withdrawal_amt(self.acc_no_withdrawal.get(), self.amonut_withdrwal.get())
             if self.send==1:
@@ -704,7 +768,16 @@ class Employee():
                     self.reset_withdrawal()
     def transfer_amt(self):
                 obj.transfer_db(self.acc_no_withdrawal_tranfer.get(),self.acc_no_deposit_transfer.get(),self.amonut_transfer.get())
+                self.reset_transfer()
 
+
+    def check_balance(self):
+            balance=obj.balance_valid(self.balance_account_no.get())
+            #print(balance)
+            #return balance
+            ff=f'Total Amount in the bank account No:   {self.balance_account_no.get()} is:     {balance}'
+            self.messege='Balance in Account'
+            messagebox.showinfo('showinfo',ff)
     def Gui(self):
 
         emp_window=tk.Tk()
@@ -735,10 +808,17 @@ class Employee():
 
 
 
+#datatype declaration for check balance part--------------------------------------------------
+
+        self.account_balance=StringVar()
+
+
+
+
 
         tk.Frame(emp_window, width=1450, height= 100, bg="cyan", borderwidth=3).place(x=45, y=8)
         tk.Label(emp_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=225, y=9)
-        tk.Label(emp_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
+        tk.Label(emp_window, text='Employee', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
         #tk.Frame(emp_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(emp_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(emp_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
@@ -808,6 +888,16 @@ class Employee():
         self.amonut_transfer.place(x=290,y=620)
         self.reset=tk.Button(emp_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold'), command=self.reset_transfer).place(x=100,y=680)
         self.reset=tk.Button(emp_window, text='Transfer', width=20, bg='Green', fg='white',font=('arail', 10,'bold'),command=self.transfer_amt).place(x=300,y=680)
+
+        lbs=tk.Label(emp_window, text='Account Balance', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=750,y=460)
+        lbs=tk.Label(emp_window, text="Account No:", bg='white', font=('arail', 15, 'bold')).place(x=600, y=520)
+        self.balance_account_no=Entry(emp_window, textvariable=self.account_balance,font=('arial', 15, 'bold'),width=20)
+        self.balance_account_no.place(x=750,y=520)
+
+        #bal=self.check_balance()
+        
+        #self.reset=tk.Button(manager_window, text='Reset', width=20, bg='red', fg='white',font=('arail', 10,'bold')).place(x=100,y=680)
+        self.reset=tk.Button(emp_window, text='Check', width=20, bg='Green', fg='white',font=('arail', 10,'bold'),command=self.check_balance).place(x=750,y=680)
 
         emp_window.mainloop()
     

@@ -213,6 +213,11 @@ class Bank_data():
         for dic in Collection.find(myq):
             name=dic['Name']
             return name
+
+
+
+
+
     def transfer_db(self,transferacc,depoacc, amt):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
@@ -234,6 +239,11 @@ class Bank_data():
             
         b=int(dep)+int(amt)
         result = Collection.update_one({"Account No":depoacc},{"$set":{"Amount":b}})
+
+
+
+
+
     def balance_valid(self, accnumber):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["bank_management_system_2021"]#database name
@@ -246,10 +256,39 @@ class Bank_data():
             return x['Amount']
 
 
+    def add_notice(self,num, add):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["notice"]
+        dic={
+            "no":num,
+            "notices":add
+        }
+        Collection.insert_one(dic)
+    
+    def delete_notice(self, mark):
+        
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["notice"]
 
+        dic_delete1={'no':mark
+        }
+        Collection.delete_one(dic_delete1)
+
+    def fetch_notice(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["bank_management_system_2021"]#database name
+        Collection = db["notice"]
+        
+        i=Collection.find()
+        #print(i)
+        return i
+
+        
 
 #obj=Bank_data()
-#obj.manager_info()         
+#obj.fetch_notice()       
 
 
 

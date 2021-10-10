@@ -1,6 +1,7 @@
 this project is created by Mohd Tahzeeb Khan
 started developing on 23-09-2021
 Expected ending of developing is 30-09-2021
+finish date of developing is 09/10/2021
 total days of coding: 8 days
 
 

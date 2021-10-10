@@ -7,6 +7,7 @@ from database import Bank_data
 import pymongo
 from pymongo import MongoClient 
 from designation import Manager
+from tkinter import ttk
 from designation import Employee
 
 obj=Bank_data()
@@ -53,6 +54,7 @@ class Login_Form(Tk):
             if(self.get_post=='Manager'):
                 
                 obj1.Gui()
+                logwin.destroy()
                 
                 
                 
@@ -75,6 +77,8 @@ class Login_Form(Tk):
 
     def __init__(self):
 
+
+        note=obj.fetch_notice()
         #main frame code
         logwin=tk.Tk()
         logwin.geometry("1400x800")
@@ -109,7 +113,7 @@ class Login_Form(Tk):
         self.entry_password=Entry(login_form_frame, textvariable=password, bg="grey",font=2, width=25)
         self.entry_password.place(x=900, y=475)
 
-        login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold'), command=lambda:[logwin.destroy,self.fetch_all()]).place(x=900, y=650)
+        login_button=Button(login_form_frame, text="Login", width=20, height=2, bg="light green", font=('arial', 10, 'bold'), command=self.fetch_all()).place(x=900, y=650)
         reset_button=Button(login_form_frame, text="Reset", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=self.reset).place(x=700, y=650)
         exit_button=Button(login_form_frame, text="Exit", width=20, height=2, bg="red", font=('arial', 10, 'bold'), command=logwin.destroy)
         exit_button.place(x=1100, y=650)
@@ -123,12 +127,28 @@ class Login_Form(Tk):
         label1 =tk.Label(image=test)
         label1.image = test
         label1.place(x=650,y=210)
-
+        
 
         #NoticeForm Frame
         notice_frame=Frame(logwin, width=500, height=600, borderwidth=5, relief='sunken', bg='White').place(x=50, y=150)
         notice_label=Label(notice_frame,text='Notice', font=('arail', 30, 'bold'), bg='White').place(x=250, y=175)
         note_frame=Frame(logwin, width=450, height=500, borderwidth=3, bg="grey").place(x=75, y=240)
+        collabaration_frame=Frame(logwin, width=430, height=120, borderwidth=5, relief='sunken', bg='White').place(x=85, y=600)
+
+        column_notice=('#1')
+        self.tree_note=ttk.Treeview(login_form_frame, columns=column_notice,selectmode='none', show='headings', height=16)
+        self.tree_note.column('#1',anchor=CENTER, width=430)
+        self.tree_note.heading('#1', text='____________________________________________________________________________________')
+        self.tree_note.bind('<<TreeviewSelect>>')
+        self.tree_note.place(x=85, y=250)
+        for x in obj.fetch_notice():
+                
+                z1=x['notices']
+            
+                self.tree_note.insert("",tk.END, value=[z1])
+        vsb = ttk.Scrollbar(login_form_frame, orient="vertical", command=self.tree_note.yview)
+        vsb.place(x=525, y=250)
+        self.tree_note.configure(yscrollcommand=vsb.set)
 
         logwin.mainloop()
 
