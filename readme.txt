@@ -1,25 +1,41 @@
-this project is created by Mohd Tahzeeb Khan
+this project is developed by Mohd Tahzeeb Khan
 started developing on 23-09-2021
 Expected ending of developing is 30-09-2021
-finish date of developing is 09/10/2021
-total days of coding: 8 days
+finish date of developing is 11/10/2021
+total days of coding: 19 days
 
 
 
 languages used: python
-Gui librabry: tkinter
+Gui librabry(Framework): tkinter
 database:mongodb
 
-total files to be created are
-1. Login_main.py(help section is only pending(other things are done))
-2. designation.py
-3. database.py
-4. Read me(This is text file)
+total files:
+
+            1. Login_main.py
+            2. designation.py
+            3. database.py
+            5. developeer.png
+            6. logo.jpg
+            7. partner.png
+            8. rupee.png
+            9. user.ico
+            10.Read me(This is text file)
 
 Git repositiry will also created to push this project on github.com
 
 
+manager:
+{
+    post:
+username:
+password:
+}
 
-In designation.py file consist of 3 classes(Account, Manager, Employee):
-all the classes are in use
-Account class consist of method(Employee_list, senddata,reset, add,send_data_delete_customer,delete, send_data_add_user, Add_user_bank, delete_user_bank, send_delete_data, reset_delete_user_bank )
+
+emplyee:
+{
+  post:
+username:
+password:  
+}

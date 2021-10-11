@@ -16,7 +16,7 @@ class Bank_data():
         'Aadhar No':del_aadharno
         }
         Collection.delete_one(dic_delete)
-        ##print(del_Accountno)
+        
 
 
     def Add_account(self,Accountno,FirstName, LastName, FatherName, MotherName, ContactNo, AadharNo, PanCard, Dob,Address, City, Zip, Gender, AlternativeNo, Amount):
@@ -43,7 +43,7 @@ class Bank_data():
             
         }
         insert=Collection.insert_one(dic_add)
-        ##print(dic_add)
+     
 
 
     def Add_Newuser(self, username, user_name, password, post, no_mobile):
@@ -68,7 +68,7 @@ class Bank_data():
             "Contact No":del_mobile_no
         }
         Collection.delete_one(dic)
-        #print(dic)
+      
 
     def Deposit(self, accuum,amt):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
@@ -128,7 +128,7 @@ class Bank_data():
             "_id":0
             }
             )
-        #print(dic)
+       
         return dic
     
 
@@ -147,7 +147,6 @@ class Bank_data():
             "Last Name":0
             }
             )
-        #print(dic)
         return dic
 
 
@@ -161,7 +160,7 @@ class Bank_data():
             "_id":0
         }):
          v=dic["Accnum"]
-         ##print(v)
+         
          return v
     def alter_acc(self, num, transnum):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
@@ -225,17 +224,17 @@ class Bank_data():
         trans={'Account No':transferacc}
         for dic in Collection.find(trans):
             tra=dic['Amount']
-            print(tra)
+           
         depo={'Account No':depoacc}
         for pic in Collection.find(depo):
             dep=pic['Amount']
-            print(dep)
+            (dep)
         if int(transferacc)>int(amt):
                 b=int(tra)-int(amt)
                 result = Collection.update_one({"Account No":transferacc},{"$set":{"Amount":b}})
                 return 1
         else:
-            print('sorry')
+            pass
             
         b=int(dep)+int(amt)
         result = Collection.update_one({"Account No":depoacc},{"$set":{"Amount":b}})
@@ -252,7 +251,7 @@ class Bank_data():
             'Account No':accnumber
         }
         for x in Collection.find(myquery):
-            #print(x['Amount'])
+           
             return x['Amount']
 
 
@@ -282,7 +281,7 @@ class Bank_data():
         Collection = db["notice"]
         
         i=Collection.find()
-        #print(i)
+      
         return i
 
         

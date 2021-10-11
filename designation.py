@@ -6,6 +6,7 @@ from tkinter import OptionMenu, messagebox
 from tkcalendar import Calendar
 from database import Bank_data
 import pymongo
+from PIL import ImageTk, Image
 from pymongo import MongoClient
 import random
 from random import randrange
@@ -27,10 +28,10 @@ class Account():
         def delete_treeview(self):
                 curItem = self.tree_note.focus()
                 temp=self.tree_note.item(curItem, 'values')
-                #print(temp[0])
+            
                 dd=int(temp[0])
                 obj.delete_notice(dd)
-                #print(type(dd))
+             
                 
 
 
@@ -95,7 +96,7 @@ class Account():
                 self.tree_note.place(x=910, y=100)
 
                 for x in obj.fetch_notice():
-                        print(x)
+                       
                         z=x['no']
                         z1=x['notices']
                        
@@ -272,7 +273,7 @@ class Account():
                 self.Accountno=str(self.no)
                 self.messtring=f"Account of this customer is {self.Accountno}."
                 send_data=obj.Add_account(self.Accountno,self.FirstName.get(),self.LastName.get(),self.FatherName.get(), self.MotherName.get(), self.Contactnum.get(), self.Aadharnum.get(), self.Pan.get(),self.cal.get_date(), self.Address.get(),self.City.get(), self.Zipcode.get(), self.gen1, self.Alternativenum.get(),self.Depo_amount.get())
-                #print(send_data)
+                
                 messagebox.showinfo('showinfo',self.messtring)
                 obj.alter_acc(accnuum, self.no)
 
@@ -291,7 +292,7 @@ class Account():
                 self.Depo_amount.delete(0,END)
         def add(self):
                
-                ##print(Accountno)
+               
                 global addNew_customer
                 addNew_customer=tk.Tk()
                 addNew_customer.geometry("950x700+100+100")
@@ -395,7 +396,7 @@ class Account():
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------              
         def send_data_delete_customer(self):
                 obj.delete_account(self.Account_num.get(), self.Aadhar_num.get())
-                #print(self.Account_num.get())
+               
         def delete(self):
                 dele_customer=tk.Tk()
                 dele_customer.geometry("950x530+100+100")
@@ -516,7 +517,7 @@ class Account():
                 self.delpassword.delete(0, END)
         def send_delete_data(self):
                 obj.delete_user(self.delusername.get(), self.delpassword.get(), self.Delmobile.get())
-                #print(self.delusername.get(), self.delpassword.get(), self.Delmobile.get())
+             
         def delete_user_bank(self):
                 dele_user=tk.Tk()
                 dele_user.geometry("500x530+100+100")
@@ -655,7 +656,7 @@ class Manager():
         self.send=obj.deposit_amt(self.acc_no.get(), self.amonut.get())
         self.reset_deposit()
         
-        #print(self.acc_no.get())
+    
     def send_withdrawal_amt(self):
             self.send=obj.withdrawal_amt(self.acc_no_withdrawal.get(), self.amonut_withdrwal.get())
             if self.send==1:
@@ -670,8 +671,7 @@ class Manager():
         self.reset_transfer()
     def check_balance(self):
             balance=obj.balance_valid(self.balance_account_no.get())
-            #print(balance)
-            #return balance
+            
             ff=f'Total Amount in the bank account No:   {self.balance_account_no.get()} is:     {balance}'
             self.messege='Balance in Account'
             messagebox.showinfo('showinfo',ff)
@@ -687,10 +687,11 @@ class Manager():
 
     def Gui(self):
         self.M_name=obj.manager_info()
-        manager_window=tk.Tk()
+        manager_window=tk.Toplevel()
         manager_window.geometry("1920x1080")
         manager_window.title("Manager Window")
         manager_window['bg']='peach puff'
+        
         
 
 
@@ -727,9 +728,9 @@ class Manager():
 
 
         tk.Frame(manager_window, width=1450, height= 100, bg="cyan", borderwidth=3).place(x=45, y=8)
-        tk.Label(manager_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=225, y=9)
-        tk.Label(manager_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
-        tk.Label(manager_window, text=self.M_name, bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=250, y=75)
+        tk.Label(manager_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=300, y=9)
+        tk.Label(manager_window, text='Manager:', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=275, y=75)
+        tk.Label(manager_window, text=self.M_name, bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=350, y=75)
         #tk.Frame(manager_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(manager_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(manager_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
@@ -747,6 +748,12 @@ class Manager():
         tk.Frame(manager_window, height=300, width=500, bg="White", borderwidth=3, relief='ridge').place(x=580,y=140)
         tk.Frame(manager_window, height=350, width=500, bg="White", borderwidth=3, relief='ridge').place(x=580,y=450)
         tk.Frame(manager_window, height=660, width=390, bg="White", borderwidth=3, relief='sunken').place(x=1090,y=140)
+        image1 = Image.open("rupee.png")
+        resize_image=image1.resize((300,600), Image.ANTIALIAS)
+        test=ImageTk.PhotoImage(resize_image)
+        label1=tk.Label(manager_window,image=test)
+        label1.image=test
+        label1.place(x=1135,y=170)
         
         lbs=tk.Label(manager_window, text='Amount Deposit', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=220,y=150)
         lbs=tk.Label(manager_window, text="Account No:", bg='white', font=('arail', 12, 'bold')).place(x=70, y=210)
@@ -804,6 +811,15 @@ class Manager():
         lbs=tk.Label(manager_window, text="Account No:", bg='white', font=('arail', 15, 'bold')).place(x=600, y=520)
         self.balance_account_no=Entry(manager_window, textvariable=self.account_balance,font=('arial', 15, 'bold'),width=20)
         self.balance_account_no.place(x=750,y=520)
+        image1 = Image.open("logo.jpg")
+        resize_image=image1.resize((200,100), Image.ANTIALIAS)
+        test = ImageTk.PhotoImage(resize_image)
+        
+        label1 = tk.Label(manager_window,image=test)
+        label1.image = test
+        
+        # Position image
+        label1.place(x=50,y=8)
 
         #bal=self.check_balance()
         
@@ -849,14 +865,13 @@ class Employee():
 
     def check_balance(self):
             balance=obj.balance_valid(self.balance_account_no.get())
-            #print(balance)
-            #return balance
+            
             ff=f'Total Amount in the bank account No:   {self.balance_account_no.get()} is:     {balance}'
             self.messege='Balance in Account'
             messagebox.showinfo('showinfo',ff)
     def Gui(self):
 
-        emp_window=tk.Tk()
+        emp_window=tk.Toplevel()
         emp_window.geometry("1500x900")
         emp_window.title("Employee Window")
         
@@ -893,16 +908,16 @@ class Employee():
 
 
         tk.Frame(emp_window, width=1450, height= 100, bg="cyan", borderwidth=3).place(x=45, y=8)
-        tk.Label(emp_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=225, y=9)
-        tk.Label(emp_window, text='Employee', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
+        tk.Label(emp_window, text="BON", bg="cyan", fg="purple", font=('arial', 40, 'bold')).place(x=300, y=9)
+        #tk.Label(emp_window, text='Employee', bg='cyan', fg='black', font=('arial', 12, 'bold')).place(x=175, y=75)
         #tk.Frame(emp_window, width=880, height= 100, bg="peachpuff4", borderwidth=3).place(x=500, y=8)
         tk.Frame(emp_window, width=1450, height=700, bg="gainsboro", borderwidth=10, relief=SUNKEN).place(x=45, y=120)
         tk.Button(emp_window, height=2, text="New Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"), command=objAdd_customer.add).place(x= 505, y=10)
         tk.Button(emp_window, height=2, text="Close Account", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="blue",font=("arial", 10, "bold"), command=objAdd_customer.delete).place(x= 505, y=57)
         tk.Button(emp_window, height=2, text="New Employee", bg="white", width=25, state=DISABLED,borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Add_user_bank).place(x= 725, y=10)
         tk.Button(emp_window, height=2, text="Delete Employee", bg="white", width=25,state=DISABLED, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.delete_user_bank).place(x= 725, y=57)
-        tk.Button(emp_window, height=2, text="Calculator", bg="white", width=25,  borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=10)
-        tk.Button(emp_window, height=2, text="Attendance", bg="white", width=25, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Calculator_bank).place(x= 945, y=57)
+        tk.Button(emp_window, height=2, text="Calculator", bg="white", width=25,  borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold"),command=objAdd_customer.Calculator_bank).place(x= 945, y=10)
+        tk.Button(emp_window, height=2, text="Employee List", bg="white", width=25, command=objAdd_customer.Employee_list, borderwidth=2, fg="black", activebackground="black", activeforeground="deep sky blue",font=("arial", 10, "bold")).place(x= 945, y=57)
         tk.Button(emp_window, height=2, text="Login Out", bg="red", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=emp_window.destroy).place(x= 1165, y=57)
         tk.Button(emp_window, height=2, text="Customer Profile", bg="White", width=25, borderwidth=2, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold"), command=objAdd_customer.customer_list).place(x= 1165, y=10)
         tk.Button(emp_window, height=5, text="Notice", bg="White", width=11, borderwidth=2, state=DISABLED, fg="Black", activebackground="black", activeforeground="White",font=("arial", 10, "bold")).place(x= 1380, y=10)
@@ -912,6 +927,15 @@ class Employee():
         tk.Frame(emp_window, height=300, width=500, bg="White", borderwidth=3, relief='ridge').place(x=580,y=140)
         tk.Frame(emp_window, height=350, width=500, bg="White", borderwidth=3, relief='ridge').place(x=580,y=450)
         tk.Frame(emp_window, height=660, width=390, bg="White", borderwidth=3, relief='sunken').place(x=1090,y=140)
+        image1 = Image.open("rupee.png")
+        resize_image=image1.resize((300,600), Image.ANTIALIAS)
+        test = ImageTk.PhotoImage(resize_image)
+        
+        label1 = tk.Label(emp_window, image=test)
+        label1.image = test
+        
+        # Position image
+        label1.place(x=1135,y=170)
         
         lbs=tk.Label(emp_window, text='Amount Deposit', bg='black',fg='white',font=('Helvetica' ,15, 'bold italic')).place(x=220,y=150)
         lbs=tk.Label(emp_window, text="Account No:", bg='white', font=('arail', 12, 'bold')).place(x=70, y=210)
@@ -969,6 +993,15 @@ class Employee():
         lbs=tk.Label(emp_window, text="Account No:", bg='white', font=('arail', 15, 'bold')).place(x=600, y=520)
         self.balance_account_no=Entry(emp_window, textvariable=self.account_balance,font=('arial', 15, 'bold'),width=20)
         self.balance_account_no.place(x=750,y=520)
+        image1 = Image.open("logo.jpg")
+        resize_image=image1.resize((200,100), Image.ANTIALIAS)
+        test = ImageTk.PhotoImage(resize_image)
+        
+        label1 = tk.Label(emp_window,image=test)
+        label1.image = test
+        
+        # Position image
+        label1.place(x=50,y=8)
 
         #bal=self.check_balance()
         
@@ -977,7 +1010,5 @@ class Employee():
 
         emp_window.mainloop()
     
-#obj1=Manager()
-#obj1.Gui()
 
   

@@ -9,6 +9,8 @@ from pymongo import MongoClient
 from designation import Manager
 from tkinter import ttk
 from designation import Employee
+import PIL
+from PIL import ImageTk, Image
 
 obj=Bank_data()
 obj1=Manager()
@@ -17,12 +19,22 @@ obj2=Employee()
 
 class Login_Form(Tk):
 
+
+
     def Developer(self):
-            dev_win=tk.Tk()
+            dev_win=tk.Toplevel()
             dev_win.geometry("800x600")
             dev_win.title("Bank Management system developer")
-            develop_exit_button=Button(dev_win, text="Exit", bg="red", fg="White", font=("arial", 10, 'bold'), command=dev_win.destroy).place(x=380, y=560)
-
+            dev_win['bg']='grey'
+            image1 = Image.open("developeer.png")
+            
+            resize_image=image1.resize((790,545), Image.ANTIALIAS)
+            test = ImageTk.PhotoImage(resize_image)
+            panel=tk.Label(dev_win,image=test)
+            panel.image=test
+            panel.place(x=5,y=5)
+            
+            develop_exit_button=Button(dev_win, text="Exit", bg="red", fg="White", font=("arial", 15, 'bold'), command=dev_win.destroy).place(x=380, y=550)
             dev_win.mainloop()
 
     def Help_user(self):
@@ -48,13 +60,12 @@ class Login_Form(Tk):
                                       "Username":self.user,
                                       "Password":self.get_pass},{"_id":0, "Name":0, "Contact No":0})
         x={'Username': self.user, 'Password': self.get_pass, 'post':self.get_post}
-        #print(x)
-        #print(result)
+      
         if(x==result):
             if(self.get_post=='Manager'):
                 
                 obj1.Gui()
-                logwin.destroy()
+               
                 
                 
                 
@@ -83,12 +94,12 @@ class Login_Form(Tk):
         logwin=tk.Tk()
         logwin.geometry("1400x800")
         logwin.title("Bank of Nagpur")
-        toptitleframe=Frame(logwin, width=1300, height=100, bg="White", borderwidth=10,relief="ridge").place(x=50, y=25)
+        toptitleframe=Frame(logwin, width=1150, height=100, bg="White", borderwidth=10,relief="ridge").place(x=200, y=25)
         bank_name_Label=Label(logwin, text="Bank of Nagpur. PVT, LTD", bg="white", fg="Black", font=('arial', 40, 'bold')).place(x=250, y=45)
         bank_enquire_details_contact=Label(logwin, text='Contact no: 5569933', fg="black", bg="white", font=("arial", 10, 'bold')).place(x=950,y=45)
         bank_enquire_details_website=Label(logwin, text='Website: www.bankofngp.in', fg="black", bg="white", font=("arial", 10, 'bold')).place(x=950,y=75)
-        Developer_button=Button(logwin, text="<--Develop-->", width=20,bg="yellow", height=1)
-        Developer_button['command']=self.Developer
+        Developer_button=Button(logwin, text="<--Develop-->", width=20,bg="yellow", height=1, command=self.Developer)
+        
         Developer_button.place(x=1180, y=45)
         Help_button=Button(logwin, text="Help", width=20, height=1, bg="light green", command=self.Help_user).place(x=1180, y=75)
 
@@ -149,6 +160,25 @@ class Login_Form(Tk):
         vsb = ttk.Scrollbar(login_form_frame, orient="vertical", command=self.tree_note.yview)
         vsb.place(x=525, y=250)
         self.tree_note.configure(yscrollcommand=vsb.set)
+        image1 = Image.open("bank_logo.png")
+        resize_image=image1.resize((150,140), Image.ANTIALIAS)
+        test = ImageTk.PhotoImage(resize_image)
+        
+        label1 = tk.Label(image=test)
+        label1.image = test
+        
+        # Position image
+        label1.place(x=40,y=0)
+
+        image1 = Image.open("partner.png")
+        resize_image=image1.resize((90,90), Image.ANTIALIAS)
+        test = ImageTk.PhotoImage(resize_image)
+        
+        label1 = tk.Label(image=test)
+        label1.image = test
+        
+        # Position image
+        label1.place(x=120,y=620)
 
         logwin.mainloop()
 
