@@ -27,15 +27,25 @@ Git repositiry will also created to push this project on github.com
 
 manager:
 {
-    post:
-username:
-password:
+    post:Manager
+username:Manager.bon
+password:pass.bon
 }
 
 
 emplyee:
 {
-  post:
-username:
-password:  
+  post:Employee
+username:emp.bon
+password:emp.bon
 }
+
+To run this project you need to download and install the python, and set the Enviroment variable
+You also need to download MongoDB and install it..........
+
+
+
+For More Free projects & Paid Projects you can contact me on Gmail:tahzeebk80@gmail.com or you can also connect to me on Instagram and Twitter
+Twitter Handle:@py_tahzeeb
+Instagram id:md.tahzeeb.k
+github:tahzeeb-web-py
